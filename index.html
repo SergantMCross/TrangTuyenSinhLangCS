@@ -8,86 +8,8 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            crimson: { DEFAULT: '#A51C30', dark: '#8C1726', light: '#C4344A' },
-            ivory: '#FAF9F6',
-            slate: { subtle: '#F3F2EF', mid: '#E8E6E1' }
-          },
-          fontFamily: {
-            display: ['Playfair Display', 'Georgia', 'serif'],
-            body: ['Inter', 'system-ui', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    html { height: 100%; }
-    body { height: 100%; margin: 0; font-family: 'Inter', system-ui, sans-serif; }
-    .app-root { height: 100%; overflow-y: auto; overflow-x: hidden; }
-    .font-display { font-family: 'Playfair Display', Georgia, serif; }
-
-    /* Animations */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-    .anim-fade-up { animation: fadeUp 0.8s ease-out both; }
-    .anim-fade-up-d1 { animation: fadeUp 0.8s ease-out 0.15s both; }
-    .anim-fade-up-d2 { animation: fadeUp 0.8s ease-out 0.3s both; }
-    .anim-fade-up-d3 { animation: fadeUp 0.8s ease-out 0.45s both; }
-    .anim-scale-in { animation: scaleIn 0.6s ease-out both; }
-
-    /* Custom scrollbar */
-    .app-root::-webkit-scrollbar { width: 8px; }
-    .app-root::-webkit-scrollbar-track { background: #F3F2EF; }
-    .app-root::-webkit-scrollbar-thumb { background: #C4C0B8; border-radius: 4px; }
-    .app-root::-webkit-scrollbar-thumb:hover { background: #A51C30; }
-
-    /* Hero pattern */
-    .hero-pattern {
-      background-image:
-        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%),
-        radial-gradient(circle at 60% 80%, rgba(255,255,255,0.04) 0%, transparent 60%);
-    }
-
-    /* Subtle grid for sections */
-    .grid-bg {
-      background-image: linear-gradient(rgba(165,28,48,0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(165,28,48,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-
-    /* Input focus */
-    input[type="number"]:focus, select:focus {
-      outline: none;
-      border-color: #A51C30;
-      box-shadow: 0 0 0 3px rgba(165,28,48,0.12);
-    }
-
-    /* Number input spinners */
-    input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
-
-    /* Nav shadow on scroll */
-    .nav-scrolled { box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
-
-    /* Result bar animation */
-    .result-bar { transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
-
-    /* Brochure page styling */
-    .brochure-page {
-      background: linear-gradient(135deg, #fff 0%, #FAF9F6 100%);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.1);
-    }
-
-    /* Mobile nav */
-    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
-    .mobile-menu.open { transform: translateX(0); }
-  </style>
-  <style>body { box-sizing: border-box; }</style>
+  <script src="./tailwind-config.js"></script>
+  <link rel="stylesheet" href="./style.css">
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full">
@@ -111,7 +33,7 @@
       </div><!-- Mobile hamburger --> <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg hover:bg-slate-subtle"> <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i> </button>
      </div>
     </div><!-- Mobile Menu -->
-    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 bottom-0 w-72 bg-white shadow-2xl z-50 p-6 md:hidden" style="height:100%;">
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-72 max-w-[85vw] bg-white shadow-2xl z-50 p-6 md:hidden" style="height:100vh;">
      <div class="flex justify-between items-center mb-8">
       <span class="font-display font-bold" style="color:#A51C30;">Menu</span> <button onclick="toggleMobileMenu()" class="p-2 rounded-lg hover:bg-slate-subtle"><i data-lucide="x" class="w-5 h-5"></i></button>
      </div>
@@ -132,7 +54,7 @@
       <div class="mt-10 flex flex-col sm:flex-row gap-4 anim-fade-up-d3">
        <a href="#calculator" id="hero-cta" class="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 rounded-xl text-base transition-all hover:shadow-xl hover:scale-105 text-white" style="background:#A51C30;"> <i data-lucide="calculator" class="w-5 h-5"></i> <span id="hero-cta-text">Tính điểm xét tuyển</span> </a> <a href="#brochure" class="inline-flex items-center justify-center gap-2 font-medium px-8 py-4 rounded-xl text-base transition-all" style="border: 2px solid #A51C30; color:#A51C30;"> <i data-lucide="file-text" class="w-5 h-5"></i> Xem brochure </a>
       </div><!-- Stats -->
-      <div class="mt-16 grid grid-cols-3 gap-6 max-w-lg anim-fade-up-d3">
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-lg anim-fade-up-d3">
        <div class="text-center sm:text-left">
         <div class="text-2xl sm:text-3xl font-display font-bold" style="color:#A51C30;">
          150+
@@ -184,7 +106,7 @@
         <div>
          <label for="exam-combo" class="block text-sm font-medium mb-2" style="color:#444;">Tổ hợp xét tuyển</label> <select id="exam-combo" class="w-full px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm font-body transition-all"> <option value="A00">A00 — Toán, Lý, Hóa</option> <option value="A01">A01 — Toán, Lý, Anh</option> <option value="B00">B00 — Toán, Hóa, Sinh</option> <option value="C00">C00 — Văn, Sử, Địa</option> <option value="D01">D01 — Toán, Văn, Anh</option> </select>
         </div>
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
          <div>
           <label for="exam-s1" class="block text-xs font-medium mb-1.5" style="color:#555;" id="exam-label-1">Môn 1</label> <input type="number" id="exam-s1" min="0" max="10" step="0.25" placeholder="0-10" class="w-full px-3 py-3 rounded-xl border border-slate-mid bg-ivory text-sm text-center font-semibold transition-all">
          </div>
@@ -618,8 +540,8 @@
        </div>
       </div><!-- Download CTA -->
       <div class="text-center">
-       <button onclick="downloadBrochure()" class="inline-flex items-center gap-3 px-10 py-4 rounded-xl text-white font-semibold text-base transition-all hover:shadow-xl hover:scale-105" style="background:#A51C30;" id="download-btn"> <i data-lucide="download" class="w-5 h-5"></i> Tải Brochure PDF </button>
-       <p class="mt-3 text-sm" style="color:#999;">PDF · 4 trang · ~2.4 MB</p>
+       <a href="./Tuyen_Sinh_2026_HCMUE_KHTN.docx" download="Tuyen_Sinh_2026_HCMUE_KHTN.docx" onclick="downloadBrochure()" class="inline-flex items-center gap-3 px-10 py-4 rounded-xl text-white font-semibold text-base transition-all hover:shadow-xl hover:scale-105" style="background:#A51C30; text-decoration:none;" id="download-btn"> <i data-lucide="download" class="w-5 h-5"></i> Tải Brochure PDF </a>
+       <p class="mt-3 text-sm" style="color:#999;">DOCX · Tải về bản gốc</p>
       </div>
      </div>
     </div>
@@ -696,7 +618,7 @@
     </div>
    </div>
   </div>
-  <script>
+  <script src="./script.js"></script><!--
   // ─── AdmissionsEngine ───
   class AdmissionsEngine {
     constructor() {
@@ -1329,6 +1251,6 @@
   }
 
   lucide.createIcons();
-  </script>
+  </script>-->
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e2f83df675afd8b',t:'MTc3NDYyNjI1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
