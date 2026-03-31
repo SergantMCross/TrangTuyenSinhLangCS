@@ -1,0 +1,1334 @@
+<!doctype html>
+<html lang="vi" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Làng CS - Tuyển Sinh 2026</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            crimson: { DEFAULT: '#A51C30', dark: '#8C1726', light: '#C4344A' },
+            ivory: '#FAF9F6',
+            slate: { subtle: '#F3F2EF', mid: '#E8E6E1' }
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'Georgia', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { height: 100%; }
+    body { height: 100%; margin: 0; font-family: 'Inter', system-ui, sans-serif; }
+    .app-root { height: 100%; overflow-y: auto; overflow-x: hidden; }
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .anim-fade-up { animation: fadeUp 0.8s ease-out both; }
+    .anim-fade-up-d1 { animation: fadeUp 0.8s ease-out 0.15s both; }
+    .anim-fade-up-d2 { animation: fadeUp 0.8s ease-out 0.3s both; }
+    .anim-fade-up-d3 { animation: fadeUp 0.8s ease-out 0.45s both; }
+    .anim-scale-in { animation: scaleIn 0.6s ease-out both; }
+
+    /* Custom scrollbar */
+    .app-root::-webkit-scrollbar { width: 8px; }
+    .app-root::-webkit-scrollbar-track { background: #F3F2EF; }
+    .app-root::-webkit-scrollbar-thumb { background: #C4C0B8; border-radius: 4px; }
+    .app-root::-webkit-scrollbar-thumb:hover { background: #A51C30; }
+
+    /* Hero pattern */
+    .hero-pattern {
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%),
+        radial-gradient(circle at 60% 80%, rgba(255,255,255,0.04) 0%, transparent 60%);
+    }
+
+    /* Subtle grid for sections */
+    .grid-bg {
+      background-image: linear-gradient(rgba(165,28,48,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(165,28,48,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Input focus */
+    input[type="number"]:focus, select:focus {
+      outline: none;
+      border-color: #A51C30;
+      box-shadow: 0 0 0 3px rgba(165,28,48,0.12);
+    }
+
+    /* Number input spinners */
+    input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
+
+    /* Nav shadow on scroll */
+    .nav-scrolled { box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+
+    /* Result bar animation */
+    .result-bar { transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+
+    /* Brochure page styling */
+    .brochure-page {
+      background: linear-gradient(135deg, #fff 0%, #FAF9F6 100%);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.1);
+    }
+
+    /* Mobile nav */
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="app-root bg-white" id="app-root">
+   <!-- Sticky Navbar -->
+   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-subtle transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex items-center justify-between h-16 lg:h-20">
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+       <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center" id="nav-logo-bg" style="background:#A51C30;">
+        <svg viewbox="0 0 24 24" class="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+        </svg>
+       </div>
+       <div>
+        <span class="font-display font-bold text-base lg:text-lg leading-tight block" id="nav-uni-name" style="color:#A51C30;">Làng CS</span> <span class="text-xs font-body opacity-60 hidden sm:block" id="nav-tagline">Tuyển sinh 2026</span>
+       </div>
+      </div><!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-1">
+       <a href="#hero" class="nav-link px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-slate-subtle" style="color:#333;">Trang chủ</a> <a href="#calculator" class="nav-link px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-slate-subtle" style="color:#333;">Tính điểm</a> <a href="#results" class="nav-link px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-slate-subtle" style="color:#333;">Kết quả</a> <a href="#brochure" class="nav-link px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-slate-subtle" style="color:#333;">Brochure</a> <a href="#calculator" class="ml-3 px-5 py-2.5 text-sm font-semibold text-white rounded-lg transition-all hover:shadow-lg hover:scale-105" id="nav-cta" style="background:#A51C30;">Đăng ký ngay</a>
+      </div><!-- Mobile hamburger --> <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg hover:bg-slate-subtle"> <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i> </button>
+     </div>
+    </div><!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 bottom-0 w-72 bg-white shadow-2xl z-50 p-6 md:hidden" style="height:100%;">
+     <div class="flex justify-between items-center mb-8">
+      <span class="font-display font-bold" style="color:#A51C30;">Menu</span> <button onclick="toggleMobileMenu()" class="p-2 rounded-lg hover:bg-slate-subtle"><i data-lucide="x" class="w-5 h-5"></i></button>
+     </div>
+     <div class="flex flex-col gap-2">
+      <a href="#hero" onclick="toggleMobileMenu()" class="px-4 py-3 rounded-lg text-sm font-medium hover:bg-slate-subtle transition-colors">Trang chủ</a> <a href="#calculator" onclick="toggleMobileMenu()" class="px-4 py-3 rounded-lg text-sm font-medium hover:bg-slate-subtle transition-colors">Tính điểm</a> <a href="#results" onclick="toggleMobileMenu()" class="px-4 py-3 rounded-lg text-sm font-medium hover:bg-slate-subtle transition-colors">Kết quả</a> <a href="#brochure" onclick="toggleMobileMenu()" class="px-4 py-3 rounded-lg text-sm font-medium hover:bg-slate-subtle transition-colors">Brochure</a> <a href="#calculator" onclick="toggleMobileMenu()" class="mt-4 px-5 py-3 text-sm font-semibold text-white rounded-lg text-center" style="background:#A51C30;">Đăng ký ngay</a>
+     </div>
+    </div>
+   </nav><!-- Hero Section -->
+   <section id="hero" class="relative pt-20 lg:pt-24" style="background: linear-gradient(180deg, #F5F5F5 0%, #FFFFFF 100%);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
+     <div class="max-w-3xl">
+      <div class="anim-fade-up inline-flex items-center gap-2 bg-red-50 text-sm font-medium px-4 py-2 rounded-full mb-8 border border-red-100" style="color:#A51C30;">
+       <i data-lucide="sparkles" class="w-4 h-4"></i> <span>Mùa tuyển sinh 2026 đã mở</span>
+      </div>
+      <h1 id="hero-title" class="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight anim-fade-up-d1" style="color:#1a1a1a;">Hệ thống Tính Điểm<br>
+        Tuyển Sinh 2026</h1>
+      <p id="hero-subtitle" class="mt-6 text-base sm:text-lg lg:text-xl font-body leading-relaxed max-w-2xl anim-fade-up-d2" style="color:#666;">Khám phá cơ hội học tập tại các trường đại học hàng đầu. Tính điểm xét tuyển, tra cứu ngành học và chuẩn bị hồ sơ ngay hôm nay.</p>
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 anim-fade-up-d3">
+       <a href="#calculator" id="hero-cta" class="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 rounded-xl text-base transition-all hover:shadow-xl hover:scale-105 text-white" style="background:#A51C30;"> <i data-lucide="calculator" class="w-5 h-5"></i> <span id="hero-cta-text">Tính điểm xét tuyển</span> </a> <a href="#brochure" class="inline-flex items-center justify-center gap-2 font-medium px-8 py-4 rounded-xl text-base transition-all" style="border: 2px solid #A51C30; color:#A51C30;"> <i data-lucide="file-text" class="w-5 h-5"></i> Xem brochure </a>
+      </div><!-- Stats -->
+      <div class="mt-16 grid grid-cols-3 gap-6 max-w-lg anim-fade-up-d3">
+       <div class="text-center sm:text-left">
+        <div class="text-2xl sm:text-3xl font-display font-bold" style="color:#A51C30;">
+         150+
+        </div>
+        <div class="text-xs sm:text-sm mt-1" style="color:#888;">
+         Ngành đào tạo
+        </div>
+       </div>
+       <div class="text-center sm:text-left">
+        <div class="text-2xl sm:text-3xl font-display font-bold" style="color:#A51C30;">
+         50K+
+        </div>
+        <div class="text-xs sm:text-sm mt-1" style="color:#888;">
+         Chỉ tiêu tuyển sinh
+        </div>
+       </div>
+       <div class="text-center sm:text-left">
+        <div class="text-2xl sm:text-3xl font-display font-bold" style="color:#A51C30;">
+         98%
+        </div>
+        <div class="text-xs sm:text-sm mt-1" style="color:#888;">
+         Tỷ lệ việc làm
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Score Calculator Section -->
+   <section id="calculator" class="bg-ivory grid-bg py-16 sm:py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-12 lg:mb-16">
+      <span class="inline-block text-xs font-semibold tracking-widest uppercase mb-3 px-3 py-1 rounded-full" style="color:#A51C30; background:rgba(165,28,48,0.08);">Công cụ tính điểm</span>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-2" style="color:#1a1a1a;">Tính Điểm Xét Tuyển</h2>
+      <p class="mt-4 text-base sm:text-lg max-w-2xl mx-auto" style="color:#666;">Nhập điểm thi hoặc điểm học bạ để tính tổng điểm xét tuyển đại học năm 2026</p>
+     </div>
+     <div class="grid lg:grid-cols-2 gap-8 lg:gap-10">
+      <!-- National Exam Calculator -->
+      <div class="bg-white rounded-2xl border border-slate-mid p-6 sm:p-8 transition-shadow hover:shadow-lg">
+       <div class="flex items-center gap-3 mb-6">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:rgba(165,28,48,0.1);">
+         <i data-lucide="pen-tool" class="w-5 h-5" style="color:#A51C30;"></i>
+        </div>
+        <div>
+         <h3 class="font-display text-xl font-bold" style="color:#1a1a1a;">Điểm Thi THPT</h3>
+         <p class="text-xs" style="color:#888;">Kỳ thi tốt nghiệp THPT Quốc gia</p>
+        </div>
+       </div>
+       <form onsubmit="event.preventDefault(); calculateExam();" class="space-y-5">
+        <div>
+         <label for="exam-combo" class="block text-sm font-medium mb-2" style="color:#444;">Tổ hợp xét tuyển</label> <select id="exam-combo" class="w-full px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm font-body transition-all"> <option value="A00">A00 — Toán, Lý, Hóa</option> <option value="A01">A01 — Toán, Lý, Anh</option> <option value="B00">B00 — Toán, Hóa, Sinh</option> <option value="C00">C00 — Văn, Sử, Địa</option> <option value="D01">D01 — Toán, Văn, Anh</option> </select>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+         <div>
+          <label for="exam-s1" class="block text-xs font-medium mb-1.5" style="color:#555;" id="exam-label-1">Môn 1</label> <input type="number" id="exam-s1" min="0" max="10" step="0.25" placeholder="0-10" class="w-full px-3 py-3 rounded-xl border border-slate-mid bg-ivory text-sm text-center font-semibold transition-all">
+         </div>
+         <div>
+          <label for="exam-s2" class="block text-xs font-medium mb-1.5" style="color:#555;" id="exam-label-2">Môn 2</label> <input type="number" id="exam-s2" min="0" max="10" step="0.25" placeholder="0-10" class="w-full px-3 py-3 rounded-xl border border-slate-mid bg-ivory text-sm text-center font-semibold transition-all">
+         </div>
+         <div>
+          <label for="exam-s3" class="block text-xs font-medium mb-1.5" style="color:#555;" id="exam-label-3">Môn 3</label> <input type="number" id="exam-s3" min="0" max="10" step="0.25" placeholder="0-10" class="w-full px-3 py-3 rounded-xl border border-slate-mid bg-ivory text-sm text-center font-semibold transition-all">
+         </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+         <div>
+          <label for="exam-priority" class="block text-xs font-medium mb-1.5" style="color:#555;">Điểm ưu tiên</label> <input type="number" id="exam-priority" min="0" max="2.75" step="0.25" value="0" class="w-full px-3 py-3 rounded-xl border border-slate-mid bg-ivory text-sm text-center transition-all">
+         </div>
+         <div>
+          <label for="exam-region" class="block text-xs font-medium mb-1.5" style="color:#555;">Khu vực</label> <select id="exam-region" class="w-full px-3 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all"> <option value="0">KV3 (0đ)</option> <option value="0.25">KV2-NT (0.25đ)</option> <option value="0.5">KV2 (0.5đ)</option> <option value="0.75">KV1 (0.75đ)</option> </select>
+         </div>
+        </div><button type="submit" class="w-full py-3.5 rounded-xl text-white font-semibold text-sm transition-all hover:shadow-lg hover:scale-[1.02] flex items-center justify-center gap-2" style="background:#A51C30;" id="exam-calc-btn"> <i data-lucide="calculator" class="w-4 h-4"></i> Tính điểm thi THPT </button>
+       </form><!-- Exam Result -->
+       <div id="exam-result" class="hidden mt-6 p-5 rounded-xl border-2 transition-all" style="border-color:#A51C30; background:rgba(165,28,48,0.04);">
+        <div class="flex items-center justify-between">
+         <span class="text-sm font-medium" style="color:#555;">Tổng điểm xét tuyển</span> <span id="exam-total" class="text-3xl font-display font-bold" style="color:#A51C30;">0</span>
+        </div>
+        <div class="mt-3 w-full bg-slate-mid rounded-full h-2.5 overflow-hidden">
+         <div id="exam-bar" class="result-bar h-full rounded-full" style="width:0%; background:#A51C30;"></div>
+        </div>
+        <p id="exam-assessment" class="mt-2 text-xs" style="color:#888;"></p>
+       </div>
+      </div><!-- Academic Transcript Calculator -->
+      <div class="bg-white rounded-2xl border border-slate-mid p-6 sm:p-8 transition-shadow hover:shadow-lg">
+       <div class="flex items-center gap-3 mb-6">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:rgba(165,28,48,0.1);">
+         <i data-lucide="book-open" class="w-5 h-5" style="color:#A51C30;"></i>
+        </div>
+        <div>
+         <h3 class="font-display text-xl font-bold" style="color:#1a1a1a;">Điểm Học Bạ</h3>
+         <p class="text-xs" style="color:#888;">Xét tuyển bằng học bạ THPT</p>
+        </div>
+       </div>
+       <form onsubmit="event.preventDefault(); calculateTranscript();">
+        <!-- Transcript Table - 10 Subjects, 6 Semesters -->
+        <div class="overflow-x-auto -mx-2 rounded-xl border" style="border-color:#E5E7EB;">
+         <table class="w-full text-xs">
+          <thead>
+           <tr style="background:#A51C30;">
+            <th class="py-3 px-3 text-left font-semibold text-white sticky left-0 z-10" style="min-width:110px; background:#A51C30;">Môn học</th>
+            <th class="py-3 px-2 text-center font-semibold text-white">HK1<br><span class="text-xs font-normal opacity-90">Lớp 10</span></th>
+            <th class="py-3 px-2 text-center font-semibold text-white">HK2<br><span class="text-xs font-normal opacity-90">Lớp 10</span></th>
+            <th class="py-3 px-2 text-center font-semibold text-white">HK1<br><span class="text-xs font-normal opacity-90">Lớp 11</span></th>
+            <th class="py-3 px-2 text-center font-semibold text-white">HK2<br><span class="text-xs font-normal opacity-90">Lớp 11</span></th>
+            <th class="py-3 px-2 text-center font-semibold text-white">HK1<br><span class="text-xs font-normal opacity-90">Lớp 12</span></th>
+            <th class="py-3 px-2 text-center font-semibold text-white">HK2<br><span class="text-xs font-normal opacity-90">Lớp 12</span></th>
+           </tr>
+          </thead>
+          <tbody id="transcript-body">
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Toán</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="toan" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="toan" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="toan" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="toan" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="toan" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="toan" data-semester="6"></td>
+           </tr>
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Văn</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="van" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="van" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="van" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="van" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="van" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="van" data-semester="6"></td>
+           </tr>
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Sử</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="su" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="su" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="su" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="su" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="su" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="su" data-semester="6"></td>
+           </tr>
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Địa</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="dia" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="dia" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="dia" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="dia" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="dia" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="dia" data-semester="6"></td>
+           </tr>
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Lý</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="ly" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="ly" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="ly" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="ly" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="ly" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="ly" data-semester="6"></td>
+           </tr>
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Hóa</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="hoa" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="hoa" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="hoa" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="hoa" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="hoa" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="hoa" data-semester="6"></td>
+           </tr>
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Sinh</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="sinh" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="sinh" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="sinh" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="sinh" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="sinh" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="sinh" data-semester="6"></td>
+           </tr>
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Tin học</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="tin" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="tin" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="tin" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="tin" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="tin" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="tin" data-semester="6"></td>
+           </tr>
+           <tr style="border-bottom:1px solid #E5E7EB;">
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">Công nghệ</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="cong-nghe" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="cong-nghe" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="cong-nghe" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="cong-nghe" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="cong-nghe" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="cong-nghe" data-semester="6"></td>
+           </tr>
+           <tr>
+            <td class="py-2 px-3 font-medium sticky left-0 z-10 bg-white" style="color:#444;">GDKTPL</td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="gdktpl" data-semester="1"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="gdktpl" data-semester="2"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="gdktpl" data-semester="3"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="gdktpl" data-semester="4"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="gdktpl" data-semester="5"></td>
+            <td class="py-1 px-1"><input type="number" min="0" max="10" step="0.1" placeholder="0-10" class="w-full px-2 py-2 rounded border transition-all" style="border-color:#E5E7EB; background:#F9FAFB; text-align:center; font-size:11px;" data-subject="gdktpl" data-semester="6"></td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <p class="mt-3 text-xs px-1" style="color:#888;"><i data-lucide="info" style="width:12px; height:12px; vertical-align:middle; margin-right:4px;"></i>Nhập điểm để xem kết quả</p>
+        <div class="mt-4">
+         <label for="transcript-method" class="block text-xs font-medium mb-1.5" style="color:#555;">Phương thức tính</label> <select id="transcript-method" class="w-full px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all"> <option value="avg3">Trung bình 3 năm (Lớp 10, 11, 12)</option> <option value="avg1112">Trung bình Lớp 11 + 12</option> <option value="g12">Chỉ Lớp 12</option> </select>
+        </div><button type="submit" class="w-full mt-5 py-3.5 rounded-xl text-white font-semibold text-sm transition-all hover:shadow-lg hover:scale-[1.02] flex items-center justify-center gap-2" style="background:#A51C30;" id="transcript-calc-btn"> <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Tính điểm học bạ </button>
+       </form><!-- Transcript Result -->
+       <div id="transcript-result" class="hidden mt-6 p-5 rounded-xl border-2 transition-all" style="border-color:#A51C30; background:rgba(165,28,48,0.04);">
+        <div class="flex items-center justify-between">
+         <span class="text-sm font-medium" style="color:#555;">Tổng điểm học bạ</span> <span id="transcript-total" class="text-3xl font-display font-bold" style="color:#A51C30;">0</span>
+        </div>
+        <div class="mt-3 w-full bg-slate-mid rounded-full h-2.5 overflow-hidden">
+         <div id="transcript-bar" class="result-bar h-full rounded-full" style="width:0%; background:#A51C30;"></div>
+        </div>
+        <p id="transcript-assessment" class="mt-2 text-xs" style="color:#888;"></p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Results / Analysis Section -->
+   <section id="results" class="py-16 sm:py-20 lg:py-28" style="background:#F5F5F5;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-12 lg:mb-16">
+      <span class="inline-block text-xs font-semibold tracking-widest uppercase mb-3 px-3 py-1 rounded-full" style="color:#A51C30; background:rgba(165,28,48,0.08);">Kết quả</span>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold" style="color:#1a1a1a;">Phân Tích Điểm Số</h2>
+      <p class="mt-4 text-base sm:text-lg max-w-2xl mx-auto" style="color:#666;">Xem chi tiết bảng điểm theo từng môn học và những ngành học phù hợp</p>
+     </div><!-- Results Cards Grid: 3 cards -->
+     <div class="grid lg:grid-cols-3 gap-6 mb-16">
+      <!-- Card 1: Subject Breakdown -->
+      <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-8 border border-slate-mid hover:shadow-md transition-shadow">
+       <div class="flex items-center gap-2 mb-6">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(165,28,48,0.1);"><i data-lucide="grid-3x3" class="w-5 h-5" style="color:#A51C30;"></i>
+        </div>
+        <h3 class="font-display text-xl font-bold" style="color:#1a1a1a;">Điểm Theo Môn</h3>
+       </div>
+       <div id="subject-list" class="space-y-3 max-h-96 overflow-y-auto">
+        <div class="flex items-center justify-between p-3 rounded-lg" style="background:#F9FAFB;">
+         <span class="text-sm font-medium" style="color:#666;">Toán</span> <span class="text-sm font-semibold" style="color:#A51C30;">—</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg" style="background:#F9FAFB;">
+         <span class="text-sm font-medium" style="color:#666;">Văn</span> <span class="text-sm font-semibold" style="color:#A51C30;">—</span>
+        </div>
+       </div>
+       <p class="text-xs mt-4 pt-4 border-t" style="color:#999; border-color:#E5E7EB;">Nhập điểm học bạ để xem chi tiết</p>
+      </div><!-- Card 2: Total Score (Highlighted) -->
+      <div class="bg-white rounded-3xl shadow-lg p-6 sm:p-8 border-2 relative overflow-hidden" style="border-color:#A51C30; box-shadow: 0 8px 40px rgba(165,28,48,0.15);">
+       <div class="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-5" style="background:#A51C30;"></div>
+       <div class="relative z-10">
+        <div class="flex items-center gap-2 mb-6">
+         <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:#A51C30;"><i data-lucide="trophy" class="w-5 h-5 text-white"></i>
+         </div>
+         <h3 class="font-display text-xl font-bold" style="color:#1a1a1a;">Điểm Tổng Hợp</h3>
+        </div>
+        <div class="text-center py-8">
+         <div id="results-total-score" class="font-display text-6xl font-bold mb-3" style="color:#A51C30;">
+          —
+         </div>
+         <div class="text-sm font-medium mb-6" style="color:#888;">
+          trên 30 điểm
+         </div>
+         <div id="results-assessment" class="text-sm px-4 py-3 rounded-lg" style="background:rgba(165,28,48,0.06); color:#A51C30;">
+          Nhập điểm để xem đánh giá
+         </div>
+        </div>
+        <div class="mt-6 pt-6 border-t" style="border-color:#E5E7EB;">
+         <p class="text-xs font-semibold mb-2 uppercase" style="color:#999; letter-spacing:0.5px;">Tiến độ hoàn thành</p>
+         <div class="w-full h-3 rounded-full overflow-hidden" style="background:#E5E7EB;">
+          <div id="results-progress" class="h-full rounded-full transition-all duration-700" style="width:0%; background:#A51C30;"></div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Card 3: Suggested Majors -->
+      <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-8 border border-slate-mid hover:shadow-md transition-shadow">
+       <div class="flex items-center gap-2 mb-6">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(165,28,48,0.1);"><i data-lucide="bookmark" class="w-5 h-5" style="color:#A51C30;"></i>
+        </div>
+        <h3 class="font-display text-xl font-bold" style="color:#1a1a1a;">Ngành Phù Hợp</h3>
+       </div>
+       <div id="suggested-majors" class="space-y-3 max-h-96 overflow-y-auto">
+        <div class="flex items-center gap-3 p-3 rounded-lg" style="background:#F9FAFB;">
+         <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(165,28,48,0.1);"><i data-lucide="code" class="w-4 h-4" style="color:#A51C30;"></i>
+         </div>
+         <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium truncate" style="color:#1a1a1a;">Công nghệ Thông tin</p>
+          <p class="text-xs" style="color:#888;">Điểm chuẩn: 27.5</p>
+         </div>
+        </div>
+       </div>
+       <p class="text-xs mt-4 pt-4 border-t" style="color:#999; border-color:#E5E7EB;">Cập nhật dựa trên điểm của bạn</p>
+      </div>
+     </div><!-- Hot Programs -->
+     <div class="mt-12">
+      <h3 class="font-display text-2xl font-bold mb-8" style="color:#1a1a1a;">Các Ngành Cạnh Tranh Cao Nhất</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+       <div class="bg-white rounded-2xl border border-slate-mid p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+        <div class="flex items-start justify-between mb-4">
+         <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(165,28,48,0.1);"><i data-lucide="cpu" class="w-6 h-6" style="color:#A51C30;"></i>
+         </div><span class="text-xs font-bold px-3 py-1 rounded-full" style="background:rgba(165,28,48,0.1); color:#A51C30;">HOT</span>
+        </div>
+        <h4 class="font-display text-lg font-bold mb-1" style="color:#1a1a1a;">Công nghệ Thông tin</h4>
+        <p class="text-xs mb-4" style="color:#888;">7480201 · Tổ hợp A00, A01, D01</p>
+        <div class="flex items-end justify-between">
+         <div>
+          <span class="text-xs" style="color:#888;">Điểm chuẩn</span>
+          <div class="text-2xl font-display font-bold" style="color:#A51C30;">
+           27.5
+          </div>
+         </div>
+         <div class="text-right">
+          <span class="text-xs" style="color:#888;">Chỉ tiêu</span>
+          <div class="text-sm font-semibold" style="color:#333;">
+           500
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white rounded-2xl border border-slate-mid p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+        <div class="flex items-start justify-between mb-4">
+         <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(165,28,48,0.1);"><i data-lucide="heart-pulse" class="w-6 h-6" style="color:#A51C30;"></i>
+         </div><span class="text-xs font-bold px-3 py-1 rounded-full" style="background:rgba(165,28,48,0.1); color:#A51C30;">HOT</span>
+        </div>
+        <h4 class="font-display text-lg font-bold mb-1" style="color:#1a1a1a;">Y Đa khoa</h4>
+        <p class="text-xs mb-4" style="color:#888;">7720101 · Tổ hợp B00</p>
+        <div class="flex items-end justify-between">
+         <div>
+          <span class="text-xs" style="color:#888;">Điểm chuẩn</span>
+          <div class="text-2xl font-display font-bold" style="color:#A51C30;">
+           28.0
+          </div>
+         </div>
+         <div class="text-right">
+          <span class="text-xs" style="color:#888;">Chỉ tiêu</span>
+          <div class="text-sm font-semibold" style="color:#333;">
+           300
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white rounded-2xl border border-slate-mid p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+        <div class="flex items-start justify-between mb-4">
+         <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(165,28,48,0.1);"><i data-lucide="briefcase" class="w-6 h-6" style="color:#A51C30;"></i>
+         </div>
+        </div>
+        <h4 class="font-display text-lg font-bold mb-1" style="color:#1a1a1a;">Quản trị Kinh doanh</h4>
+        <p class="text-xs mb-4" style="color:#888;">7340101 · Tổ hợp A00, D01</p>
+        <div class="flex items-end justify-between">
+         <div>
+          <span class="text-xs" style="color:#888;">Điểm chuẩn</span>
+          <div class="text-2xl font-display font-bold" style="color:#A51C30;">
+           26.75
+          </div>
+         </div>
+         <div class="text-right">
+          <span class="text-xs" style="color:#888;">Chỉ tiêu</span>
+          <div class="text-sm font-semibold" style="color:#333;">
+           400
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Brochure Section - Academic Poster Style -->
+   <section id="brochure" class="bg-white py-16 sm:py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-12 lg:mb-16">
+      <span class="inline-block text-xs font-semibold tracking-widest uppercase mb-3 px-3 py-1 rounded-full" style="color:#A51C30; background:rgba(165,28,48,0.08);">Tài liệu tuyển sinh</span>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold" style="color:#1a1a1a;">Cẩm Nang Tuyển Sinh 2026</h2>
+      <p class="mt-4 text-base sm:text-lg max-w-2xl mx-auto" style="color:#666;">Thông tin đầy đủ về các chương trình đào tạo, điểm chuẩn và quy trình xét tuyển</p>
+     </div><!-- Academic Brochure Preview -->
+     <div class="max-w-5xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+       <!-- Brochure Page 1 - Cover -->
+       <div class="brochure-page rounded-2xl p-10 sm:p-12 border border-slate-mid relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-48 h-48 rounded-bl-3xl opacity-10" style="background:#A51C30;"></div>
+        <div class="relative z-10">
+         <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8" style="background:#A51C30;">
+          <svg viewbox="0 0 24 24" class="w-8 h-8 text-white" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+          </svg>
+         </div>
+         <h3 class="font-display text-3xl font-bold mb-2" style="color:#A51C30;">Làng CS</h3>
+         <div class="w-16 h-1 rounded-full mb-8" style="background:#A51C30;"></div>
+         <p class="font-display text-2xl font-semibold mb-3" style="color:#1a1a1a;">Cẩm nang<br>
+           Tuyển sinh 2026</p>
+         <p class="text-sm mt-8 font-semibold" style="color:#1a1a1a;">THÔNG TIN TUYỂN SINH</p>
+         <p class="text-xs mt-2 leading-relaxed" style="color:#666;">Phương pháp xét tuyển, tổ hợp môn, điểm chuẩn dự kiến và hướng dẫn đăng ký dự tuyển đầy đủ cho năm học 2026.</p>
+         <div class="mt-10 flex items-center gap-2 text-xs" style="color:#999;">
+          <i data-lucide="file-text" class="w-3 h-3"></i> Trang 1/4
+         </div>
+        </div>
+       </div><!-- Brochure Page 2 - Programs & Methods -->
+       <div class="brochure-page rounded-2xl p-10 sm:p-12 border border-slate-mid">
+        <h4 class="font-display text-2xl font-bold mb-8" style="color:#A51C30;">Phương Pháp Xét Tuyển</h4>
+        <div class="space-y-4 mb-8">
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(165,28,48,0.1);">
+           <i data-lucide="pen-tool" class="w-5 h-5" style="color:#A51C30;"></i>
+          </div>
+          <div>
+           <p class="font-semibold text-sm" style="color:#1a1a1a;">Xét tuyển theo kết quả thi THPT QG</p>
+           <p class="text-xs mt-1 leading-relaxed" style="color:#888;">Tính điểm từ 3 môn thi, công bằng và minh bạch. Chỉ cần đạt điểm chuẩn ngành.</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(165,28,48,0.1);">
+           <i data-lucide="book-open" class="w-5 h-5" style="color:#A51C30;"></i>
+          </div>
+          <div>
+           <p class="font-semibold text-sm" style="color:#1a1a1a;">Xét tuyển bằng học bạ</p>
+           <p class="text-xs mt-1 leading-relaxed" style="color:#888;">Đánh giá kết quả học tập toàn khoá 3 năm THPT. Cơ hội cho những em chưa tham dự kỳ thi.</p>
+          </div>
+         </div>
+        </div>
+        <div class="p-4 rounded-lg" style="background:rgba(165,28,48,0.05); border: 1px solid rgba(165,28,48,0.1);">
+         <p class="text-xs font-semibold mb-2 uppercase" style="color:#A51C30;">Ưu tiên xét tuyển</p>
+         <p class="text-xs leading-relaxed" style="color:#666;">Cộng điểm ưu tiên đối tượng (tối đa 2đ) và khu vực (tối đa 0.75đ) vào điểm xét tuyển.</p>
+        </div>
+        <div class="mt-8 flex items-center gap-2 text-xs" style="color:#999;">
+         <i data-lucide="file-text" class="w-3 h-3"></i> Trang 2/4
+        </div>
+       </div><!-- Brochure Page 3 - Score Standards -->
+       <div class="brochure-page rounded-2xl p-10 sm:p-12 border border-slate-mid">
+        <h4 class="font-display text-2xl font-bold mb-6" style="color:#1a1a1a;">Điểm Chuẩn Năm 2025 (Tham Khảo)</h4>
+        <div class="space-y-3 mb-8">
+         <div class="flex items-center justify-between p-3 rounded-lg" style="background:#F9FAFB;">
+          <div>
+           <p class="text-sm font-semibold" style="color:#1a1a1a;">Công nghệ TT</p>
+           <p class="text-xs" style="color:#888;">Tổ hợp A00, A01, D01</p>
+          </div>
+          <p class="text-lg font-display font-bold" style="color:#A51C30;">27.5</p>
+         </div>
+         <div class="flex items-center justify-between p-3 rounded-lg" style="background:#F9FAFB;">
+          <div>
+           <p class="text-sm font-semibold" style="color:#1a1a1a;">Y Đa khoa</p>
+           <p class="text-xs" style="color:#888;">Tổ hợp B00</p>
+          </div>
+          <p class="text-lg font-display font-bold" style="color:#A51C30;">28.0</p>
+         </div>
+         <div class="flex items-center justify-between p-3 rounded-lg" style="background:#F9FAFB;">
+          <div>
+           <p class="text-sm font-semibold" style="color:#1a1a1a;">Quản trị KD</p>
+           <p class="text-xs" style="color:#888;">Tổ hợp A00, D01</p>
+          </div>
+          <p class="text-lg font-display font-bold" style="color:#A51C30;">26.75</p>
+         </div>
+        </div>
+        <div class="p-3 rounded-lg text-center border" style="background:rgba(165,28,48,0.02); border-color:#E5E7EB;">
+         <p class="text-xs" style="color:#999;">Điểm chuẩn năm 2026 sẽ được cập nhật vào tháng 4</p>
+        </div>
+        <div class="mt-8 flex items-center gap-2 text-xs" style="color:#999;">
+         <i data-lucide="file-text" class="w-3 h-3"></i> Trang 3/4
+        </div>
+       </div><!-- Brochure Page 4 - Application Info -->
+       <div class="brochure-page rounded-2xl p-10 sm:p-12 border border-slate-mid relative">
+        <h4 class="font-display text-2xl font-bold mb-6" style="color:#1a1a1a;">Hướng Dẫn Đăng Ký</h4>
+        <div class="space-y-4 mb-8 text-sm leading-relaxed">
+         <div>
+          <p class="font-semibold mb-1" style="color:#1a1a1a;">1. Chuẩn bị hồ sơ</p>
+          <p style="color:#666;">Chứng chỉ tốt nghiệp THPT, giấy tờ tùy thân, bằng cấp (nếu có).</p>
+         </div>
+         <div>
+          <p class="font-semibold mb-1" style="color:#1a1a1a;">2. Đăng ký trực tuyến</p>
+          <p style="color:#666;">Trên cổng tuyển sinh quốc gia từ tháng 5-6/2026.</p>
+         </div>
+         <div>
+          <p class="font-semibold mb-1" style="color:#1a1a1a;">3. Nộp hồ sơ</p>
+          <p style="color:#666;">Tại Phòng Đào tạo trước ngày hết hạn thụ lý (được thông báo riêng).</p>
+         </div>
+        </div>
+        <div class="flex items-center gap-3 p-4 rounded-lg" style="background:rgba(165,28,48,0.1); border: 1px solid rgba(165,28,48,0.2);">
+         <i data-lucide="phone" class="w-5 h-5" style="color:#A51C30; flex-shrink:0;"></i>
+         <div class="text-xs">
+          <p class="font-semibold" style="color:#1a1a1a;">Liên hệ tư vấn tuyển sinh</p>
+          <p style="color:#888;">Hotline: 1900.xxxx · Email: tuyensinh@langcs.edu.vn</p>
+         </div>
+        </div>
+        <div class="absolute bottom-6 right-6 w-20 h-20 flex items-center justify-center rounded-lg border-2 flex-shrink-0" style="border-color:#E5E7EB; background:#F9FAFB;">
+         <svg viewbox="0 0 100 100" class="w-16 h-16" style="color:#ccc;"><rect x="5" y="5" width="90" height="90" fill="none" stroke="currentColor" stroke-width="1" /><line x1="5" y1="5" x2="95" y2="95" stroke="currentColor" stroke-width="1" /><line x1="95" y1="5" x2="5" y2="95" stroke="currentColor" stroke-width="1" />
+         </svg>
+        </div>
+        <div class="mt-8 flex items-center gap-2 text-xs" style="color:#999;">
+         <i data-lucide="file-text" class="w-3 h-3"></i> Trang 4/4
+        </div>
+       </div>
+      </div><!-- Download CTA -->
+      <div class="text-center">
+       <button onclick="downloadBrochure()" class="inline-flex items-center gap-3 px-10 py-4 rounded-xl text-white font-semibold text-base transition-all hover:shadow-xl hover:scale-105" style="background:#A51C30;" id="download-btn"> <i data-lucide="download" class="w-5 h-5"></i> Tải Brochure PDF </button>
+       <p class="mt-3 text-sm" style="color:#999;">PDF · 4 trang · ~2.4 MB</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- University Directory Section -->
+   <section id="universities" class="bg-white py-16 sm:py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-12 lg:mb-16">
+      <span class="inline-block text-xs font-semibold tracking-widest uppercase mb-3 px-3 py-1 rounded-full" style="color:#A51C30; background:rgba(165,28,48,0.08);">Cơ sở giáo dục</span>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold" style="color:#1a1a1a;">Danh Sách Trường Đại Học</h2>
+      <p class="mt-4 text-base sm:text-lg max-w-2xl mx-auto" style="color:#666;">Tìm kiếm và lọc các trường đại học theo khu vực, ngành học</p>
+     </div><!-- Search & Filters -->
+     <div class="mb-8 space-y-4">
+      <div class="flex flex-col sm:flex-row gap-4">
+       <div class="flex-1 relative"><input type="text" id="uni-search" placeholder="Tìm kiếm theo tên trường..." class="w-full px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB;"> <i data-lucide="search" class="absolute right-3 top-3.5 w-5 h-5 opacity-40" style="color:#999;"></i>
+       </div><select id="uni-filter-region" class="px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB; min-width:160px;"> <option value="">Tất cả khu vực</option> <option value="Miền Bắc">Miền Bắc</option> <option value="Miền Trung">Miền Trung</option> <option value="Miền Nam">Miền Nam</option> <option value="Toàn quốc">Toàn quốc</option> </select> <select id="uni-filter-type" class="px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB; min-width:160px;"> <option value="">Tất cả ngành</option> <option value="CNTT">Công nghệ TT</option> <option value="Kinh tế">Kinh tế</option> <option value="Kỹ thuật">Kỹ thuật</option> <option value="Y dược">Y dược</option> <option value="Luật">Luật</option> <option value="Sư phạm">Sư phạm</option> <option value="Hệ thống">Hệ thống</option> <option value="Đa ngành">Đa ngành</option> </select>
+      </div>
+      <div class="flex items-center justify-between">
+       <p class="text-sm" style="color:#666;"><span id="uni-count">152</span> trường được tìm thấy</p><button onclick="clearUniFilters()" class="text-xs font-medium px-3 py-2 rounded-lg transition-all" style="color:#A51C30; background:rgba(165,28,48,0.08);">Xóa bộ lọc</button>
+      </div>
+     </div><!-- Universities List (Scrollable) -->
+     <div class="bg-slate-subtle rounded-2xl border border-slate-mid overflow-hidden">
+      <div id="uni-list" class="divide-y overflow-y-auto" style="max-height:600px; border-color:#E5E7EB;"><!-- University items will be populated here -->
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="border-t border-slate-mid py-10 sm:py-14" style="background:#1a1a1a;" id="footer-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+      <div>
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#A51C30;">
+         <svg viewbox="0 0 24 24" class="w-5 h-5 text-white" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+         </svg>
+        </div><span class="font-display font-bold text-white" id="footer-uni-name">Làng CS</span>
+       </div>
+       <p class="text-sm leading-relaxed" style="color:#888;" id="footer-desc">Nơi ươm mầm tri thức, kiến tạo tương lai cho thế hệ trẻ Việt Nam.</p>
+      </div>
+      <div>
+       <h4 class="font-display font-bold text-white mb-4 text-sm">Liên kết</h4>
+       <div class="space-y-2">
+        <a href="#hero" class="block text-sm transition-colors hover:text-white" style="color:#888;">Trang chủ</a> <a href="#calculator" class="block text-sm transition-colors hover:text-white" style="color:#888;">Tính điểm</a> <a href="#results" class="block text-sm transition-colors hover:text-white" style="color:#888;">Kết quả</a> <a href="#brochure" class="block text-sm transition-colors hover:text-white" style="color:#888;">Brochure</a>
+       </div>
+      </div>
+      <div>
+       <h4 class="font-display font-bold text-white mb-4 text-sm">Hỗ trợ</h4>
+       <div class="space-y-2">
+        <span class="block text-sm" style="color:#888;">Hotline: 1900-xxxx</span> <span class="block text-sm" style="color:#888;">Email: tuyensinh@langcs.edu.vn</span> <span class="block text-sm" style="color:#888;">Giờ làm việc: 8:00 - 17:00</span>
+       </div>
+      </div>
+      <div>
+       <h4 class="font-display font-bold text-white mb-4 text-sm">Kết nối</h4>
+       <div class="flex gap-3">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:opacity-80" style="background:rgba(255,255,255,0.1);"><i data-lucide="facebook" class="w-4 h-4 text-white"></i>
+        </div>
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:opacity-80" style="background:rgba(255,255,255,0.1);"><i data-lucide="instagram" class="w-4 h-4 text-white"></i>
+        </div>
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:opacity-80" style="background:rgba(255,255,255,0.1);"><i data-lucide="youtube" class="w-4 h-4 text-white"></i>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="border-t pt-6" style="border-color:rgba(255,255,255,0.1);">
+      <p class="text-center text-xs" style="color:#666;" id="footer-copyright">© 2026 Làng CS. Bảo lưu mọi quyền.</p>
+     </div>
+    </div>
+   </footer><!-- Toast -->
+   <div id="toast" class="fixed bottom-6 right-6 z-50 bg-white rounded-xl shadow-2xl border border-slate-mid p-4 flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none" style="max-width:360px;">
+    <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(165,28,48,0.1);"><i data-lucide="check" class="w-5 h-5" style="color:#A51C30;"></i>
+    </div>
+    <div>
+     <p class="text-sm font-semibold" style="color:#1a1a1a;">Brochure mẫu</p>
+     <p class="text-xs" style="color:#888;">Đây là bản xem trước. File PDF thực tế sẽ được cung cấp bởi nhà trường.</p>
+    </div>
+   </div>
+  </div>
+  <script>
+  // ─── AdmissionsEngine ───
+  class AdmissionsEngine {
+    constructor() {
+      this.regionScores = { "1": 0.75, "2NT": 0.5, "2": 0.25, "3": 0 };
+      this.targetScores = { "01": 2.0, "06": 1.0, "none": 0 };
+      this.BLOCKS = {
+        "A00": ["TOAN", "LY", "HOA"],
+        "A01": ["TOAN", "LY", "ANH"],
+        "B00": ["TOAN", "HOA", "SINH"],
+        "C00": ["VAN", "SU", "DIA"],
+        "D01": ["TOAN", "VAN", "ANH"],
+        "D07": ["TOAN", "HOA", "ANH"],
+        "D08": ["TOAN", "SINH", "ANH"]
+      };
+      this.METHODS = {
+        1: ["10_S1", "10_S2", "11_S1", "11_S2", "12_S1"],
+        2: ["11_S1", "11_S2", "12_S1"],
+        3: ["12_CN"],
+        4: ["10_S1", "10_S2", "11_S1", "11_S2", "12_S1", "12_S2"],
+        5: ["10_CN", "11_CN", "12_CN"],
+        6: ["10_S1", "10_S2", "11_S1", "11_S2", "12_S1"]
+      };
+    }
+
+    normalize(val) {
+      let n = parseFloat(val);
+      if (isNaN(n) || n < 0) return null;
+      if (n > 100) n /= 100;
+      else if (n > 10) n /= 10;
+      return Math.min(Math.round(n * 100) / 100, 10);
+    }
+
+    average(grades) {
+      const valid = grades
+        .map(g => this.normalize(g))
+        .filter(g => g !== null);
+      if (!valid.length) return 0;
+      return Math.round((valid.reduce((a, b) => a + b, 0) / valid.length) * 100) / 100;
+    }
+
+    getPriority(raw, regionId, targetId) {
+      const base = (this.regionScores[regionId] || 0) + (this.targetScores[targetId] || 0);
+      if (raw < 22.5) return base;
+      const factor = (30 - raw) / 7.5;
+      return Math.max(0, Math.round(base * factor * 100) / 100);
+    }
+
+    getGradesByMethod(subjectData, methodId) {
+      const required = this.METHODS[methodId] || [];
+      return required.map(k => subjectData[k]).filter(v => v !== undefined);
+    }
+
+    calculateBlock({ transcript, block, methodId, x2Key, regionId, targetId }) {
+      const subjects = this.BLOCKS[block];
+      if (!subjects) return null;
+
+      const averages = {};
+      let missing = false;
+
+      subjects.forEach(sub => {
+        const grades = this.getGradesByMethod(transcript[sub] || {}, methodId);
+        const avg = this.average(grades);
+        if (!avg) missing = true;
+        averages[sub] = avg;
+      });
+
+      if (missing) return null;
+
+      let raw = 0;
+      if (x2Key && subjects.includes(x2Key)) {
+        const sum = subjects.reduce((a, s) => a + averages[s], 0) + averages[x2Key];
+        raw = (sum / 4) * 3;
+      } else {
+        raw = subjects.reduce((a, s) => a + averages[s], 0);
+      }
+
+      raw = Math.round(raw * 100) / 100;
+      const priority = this.getPriority(raw, regionId, targetId);
+      const total = Math.round((raw + priority) * 100) / 100;
+
+      return { block, subjects, averages, raw, priority, total };
+    }
+
+    calculateAll(input) {
+      const results = [];
+      Object.keys(this.BLOCKS).forEach(block => {
+        const res = this.calculateBlock({ ...input, block });
+        if (res) results.push(res);
+      });
+      results.sort((a, b) => b.total - a.total);
+      return { best: results.slice(0, 3), all: results };
+    }
+  }
+
+  const admissionsEngine = new AdmissionsEngine();
+
+  // ─── Subject mapping for exam combos ───
+  const comboSubjects = {
+    'A00': ['Toán', 'Lý', 'Hóa'],
+    'A01': ['Toán', 'Lý', 'Anh'],
+    'B00': ['Toán', 'Hóa', 'Sinh'],
+    'C00': ['Văn', 'Sử', 'Địa'],
+    'D01': ['Toán', 'Văn', 'Anh']
+  };
+
+  document.getElementById('exam-combo').addEventListener('change', function() {
+    const subjects = comboSubjects[this.value];
+    document.getElementById('exam-label-1').textContent = subjects[0];
+    document.getElementById('exam-label-2').textContent = subjects[1];
+    document.getElementById('exam-label-3').textContent = subjects[2];
+  });
+  document.getElementById('exam-combo').dispatchEvent(new Event('change'));
+
+  // ─── Exam Calculator ───
+  function calculateExam() {
+    const s1 = parseFloat(document.getElementById('exam-s1').value) || 0;
+    const s2 = parseFloat(document.getElementById('exam-s2').value) || 0;
+    const s3 = parseFloat(document.getElementById('exam-s3').value) || 0;
+    const priority = parseFloat(document.getElementById('exam-priority').value) || 0;
+    const region = parseFloat(document.getElementById('exam-region').value) || 0;
+
+    const total = Math.min(s1 + s2 + s3 + priority + region, 30);
+    const resultEl = document.getElementById('exam-result');
+    resultEl.classList.remove('hidden');
+
+    document.getElementById('exam-total').textContent = total.toFixed(2);
+    document.getElementById('exam-bar').style.width = (total / 30 * 100) + '%';
+
+    let assessment = '';
+    if (total >= 27) assessment = '🎯 Rất cao — Cơ hội trúng tuyển các ngành top đầu';
+    else if (total >= 24) assessment = '✅ Khá tốt — Đủ điều kiện nhiều ngành cạnh tranh';
+    else if (total >= 20) assessment = '📊 Trung bình — Phù hợp nhiều ngành đại học';
+    else assessment = '📚 Cần cố gắng thêm — Nên cân nhắc kỹ ngành đăng ký';
+    document.getElementById('exam-assessment').textContent = assessment;
+  }
+
+  // ─── Transcript Calculator ───
+  function calculateTranscript() {
+    const method = document.getElementById('transcript-method').value;
+    const subjects = ['toan', 'van', 'su', 'dia', 'ly', 'hoa', 'sinh', 'tin', 'cong-nghe', 'gdktpl'];
+    const subjectLabels = ['Toán', 'Văn', 'Sử', 'Địa', 'Lý', 'Hóa', 'Sinh', 'Tin học', 'Công nghệ', 'GDKTPL'];
+    let subjectAverages = [];
+
+    subjects.forEach((sub, idx) => {
+      const inputs = Array.from(document.querySelectorAll(`[data-subject="${sub}"]`));
+      const values = inputs.map(inp => parseFloat(inp.value) || 0);
+
+      let avg = 0;
+      if (method === 'avg3') {
+        avg = values.reduce((a, b) => a + b, 0) / 6;
+      } else if (method === 'avg1112') {
+        avg = (values[2] + values[3] + values[4] + values[5]) / 4;
+      } else {
+        avg = (values[4] + values[5]) / 2;
+      }
+
+      subjectAverages.push(avg);
+    });
+
+    const gpa = subjectAverages.reduce((a, b) => a + b, 0) / subjects.length;
+    const total = Math.min(gpa * 3, 30);
+
+    // Update results cards
+    document.getElementById('results-total-score').textContent = total.toFixed(2);
+    document.getElementById('results-progress').style.width = (total / 30 * 100) + '%';
+
+    let assessment = '';
+    if (total >= 27) assessment = '🎯 Xuất sắc — Đạt yêu cầu hầu hết các ngành';
+    else if (total >= 24) assessment = '✅ Tốt — Nhiều cơ hội trúng tuyển';
+    else if (total >= 20) assessment = '📊 Khá — Phù hợp một số ngành';
+    else assessment = '📚 Cần nâng cao điểm số';
+    document.getElementById('results-assessment').textContent = assessment;
+
+    // Update subject list
+    const subjectList = document.getElementById('subject-list');
+    subjectList.innerHTML = '';
+    subjectAverages.forEach((avg, idx) => {
+      const row = document.createElement('div');
+      row.className = 'flex items-center justify-between p-3 rounded-lg';
+      row.style.background = '#F9FAFB';
+      row.innerHTML = `<span class="text-sm font-medium" style="color:#666;">${subjectLabels[idx]}</span><span class="text-sm font-semibold" style="color:#A51C30;">${avg.toFixed(2)}</span>`;
+      subjectList.appendChild(row);
+    });
+
+    // Update suggested majors
+    const majorsList = document.getElementById('suggested-majors');
+    majorsList.innerHTML = '';
+    const majors = [
+      { name: 'Công nghệ TT', combo: 'A00, A01, D01', score: 27.5, icon: 'code' },
+      { name: 'Y Đa khoa', combo: 'B00', score: 28.0, icon: 'heart-pulse' },
+      { name: 'Quản trị KD', combo: 'A00, D01', score: 26.75, icon: 'briefcase' }
+    ];
+    majors.forEach(major => {
+      if (total >= major.score - 1) {
+        const item = document.createElement('div');
+        item.className = 'flex items-center gap-3 p-3 rounded-lg';
+        item.style.background = '#F9FAFB';
+        item.innerHTML = `<div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(165,28,48,0.1);"><i data-lucide="${major.icon}" class="w-4 h-4" style="color:#A51C30;"></i></div><div class="flex-1 min-w-0"><p class="text-sm font-medium truncate" style="color:#1a1a1a;">${major.name}</p><p class="text-xs" style="color:#888;">Điểm chuẩn: ${major.score}</p></div>`;
+        majorsList.appendChild(item);
+      }
+    });
+    if (majorsList.children.length === 0) {
+      majorsList.innerHTML = '<p class="text-xs" style="color:#999;">Cập nhật danh sách dựa trên điểm của bạn</p>';
+    }
+    lucide.createIcons();
+
+    const resultEl = document.getElementById('transcript-result');
+    resultEl.classList.remove('hidden');
+    document.getElementById('transcript-total').textContent = total.toFixed(2);
+    document.getElementById('transcript-bar').style.width = (total / 30 * 100) + '%';
+    document.getElementById('transcript-assessment').textContent = assessment;
+  }
+
+  // ─── Mobile Menu ───
+  function toggleMobileMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  }
+
+  // ─── Navbar scroll effect ───
+  const appRoot = document.getElementById('app-root');
+  appRoot.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (appRoot.scrollTop > 20) nav.classList.add('nav-scrolled');
+    else nav.classList.remove('nav-scrolled');
+  });
+
+  // ─── Download brochure (toast) ───
+  function downloadBrochure() {
+    const toast = document.getElementById('toast');
+    toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 4000);
+  }
+
+  // ─── Smooth scroll for hash links ───
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ─── University Database ───
+  const universitiesData = [
+    {"stt": 1, "code": "KHA", "name": "Đại Học Kinh Tế Quốc Dân", "region": "Miền Bắc", "type": "Kinh tế", "website": "neu.edu.vn"},
+    {"stt": 2, "code": "BKA", "name": "Đại Học Bách Khoa Hà Nội", "region": "Miền Bắc", "type": "Kỹ thuật", "website": "hust.edu.vn"},
+    {"stt": 3, "code": "HTC", "name": "Học Viện Tài chính", "region": "Miền Bắc", "type": "Tài chính", "website": "hvtc.edu.vn"},
+    {"stt": 4, "code": "NHH", "name": "Học Viện Ngân Hàng", "region": "Miền Bắc", "type": "Tài chính", "website": "hvnh.edu.vn"},
+    {"stt": 5, "code": "NTH", "name": "Trường Đại học Ngoại thương", "region": "Miền Bắc", "type": "Kinh tế", "website": "ftu.edu.vn"},
+    {"stt": 6, "code": "YHB", "name": "Trường Đại Học Y Hà Nội", "region": "Miền Bắc", "type": "Y dược", "website": "hmu.edu.vn"},
+    {"stt": 7, "code": "BVH", "name": "Học Viện Công Nghệ Bưu Chính Viễn Thông", "region": "Miền Bắc", "type": "CNTT", "website": "ptit.edu.vn"},
+    {"stt": 8, "code": "SPH", "name": "Trường Đại Học Sư Phạm Hà Nội", "region": "Miền Bắc", "type": "Sư phạm", "website": "hnue.edu.vn"},
+    {"stt": 9, "code": "TMU", "name": "Trường Đại Học Thương Mại", "region": "Miền Bắc", "type": "Kinh tế", "website": "vcu.edu.vn"},
+    {"stt": 10, "code": "SPS", "name": "Trường Đại Học Sư Phạm TPHCM", "region": "Miền Nam", "type": "Sư phạm", "website": "hcmup.edu.vn"},
+    {"stt": 11, "code": "QHI", "name": "Trường Đại Học Công Nghệ – Đại Học Quốc Gia Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 12, "code": "HNM", "name": "Trường Đại học Thủ Đô Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 13, "code": "GHA", "name": "Trường Đại Học Giao Thông Vận Tải", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 14, "code": "DCN", "name": "Đại Học Công Nghiệp Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 15, "code": "IUH", "name": "Trường Đại Học Công Nghiệp TPHCM", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 16, "code": "HPN", "name": "Học Viện Phụ Nữ Việt Nam", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 17, "code": "ANH", "name": "Học Viện An Ninh Nhân Dân", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 18, "code": "CSH", "name": "Học Viện Cảnh Sát Nhân Dân", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 19, "code": "DKK", "name": "Trường Đại Học Kinh Tế Kỹ Thuật Công Nghiệp", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 20, "code": "DCT", "name": "Trường Đại Học Công Thương TPHCM", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 21, "code": "HHK", "name": "Học Viện Hàng không Việt Nam", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 22, "code": "PKA", "name": "Đại Học Phenikaa", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 23, "code": "CSS", "name": "Trường Đại Học Cảnh Sát Nhân Dân", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 24, "code": "NHF", "name": "Trường Đại Học Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 25, "code": "YTC", "name": "Trường Đại Học Y Tế Công Cộng", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 26, "code": "HQT", "name": "Học Viện Ngoại Giao", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 27, "code": "ANS", "name": "Trường Đại Học An Ninh Nhân Dân", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 28, "code": "TDM", "name": "Trường Đại học Thủ Dầu Một", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 29, "code": "DTL", "name": "Trường Đại Học Thăng Long", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 30, "code": "TLA", "name": "Trường Đại Học Thủy Lợi", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 31, "code": "QST", "name": "Trường Đại Học Khoa Học Tự Nhiên TPHCM", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 32, "code": "VHH", "name": "Trường Đại Học Văn Hóa Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 33, "code": "DTT", "name": "Trường Đại Học Tôn Đức Thắng", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 34, "code": "HVN", "name": "Học Viện Nông Nghiệp Việt Nam", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 35, "code": "QHX", "name": "Trường Đại Học Khoa Học Xã Hội và Nhân Văn Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 36, "code": "LPH", "name": "Trường Đại Học Luật Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 37, "code": "QHF", "name": "Trường Đại Học Ngoại Ngữ - ĐH Quốc gia Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 38, "code": "HBT", "name": "Học viện Báo chí và Tuyên truyền", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 39, "code": "QHT", "name": "Trường Đại Học Khoa Học Tự Nhiên Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 40, "code": "QHE", "name": "Trường Đại Học Kinh Tế - ĐHQG Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 41, "code": "DTS", "name": "Đại Học Sư Phạm Thái Nguyên", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 42, "code": "LCH", "name": "Trường Sĩ Quan Chính Trị - Đại Học Chính Trị", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 43, "code": "TCT", "name": "Đại Học Cần Thơ", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 44, "code": "DKS", "name": "Trường Đại học Kiểm Sát", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 45, "code": "BPH", "name": "Học Viện Biên Phòng", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 46, "code": "QHL", "name": "Trường Đại học Luật – ĐHQG Hà Nội", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 47, "code": "DHS", "name": "Trường Đại Học Sư Phạm Huế", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 48, "code": "SGD", "name": "Trường Đại Học Sài Gòn", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 49, "code": "NQH", "name": "Học Viện Khoa Học Quân Sự - Hệ Quân sự", "region": "Chưa phân loại", "type": "Chưa phân loại"},
+    {"stt": 50, "code": "FTU2", "name": "Trường Đại học Ngoại thương (Cơ sở II)", "region": "Miền Nam", "type": "Kinh tế", "website": "cs2.ftu.edu.vn"},
+    {"stt": 51, "code": "PTIT", "name": "HV Công nghệ Bưu chính Viễn thông", "region": "Miền Bắc", "type": "CNTT", "website": "ptit.edu.vn"},
+    {"stt": 52, "code": "UET", "name": "ĐH Công nghệ - ĐHQGHN", "region": "Miền Bắc", "type": "CNTT", "website": "uet.vnu.edu.vn"},
+    {"stt": 53, "code": "HVCS", "name": "Học viện Cảnh sát", "region": "Miền Bắc", "type": "Công an", "website": "csnd.edu.vn"},
+    {"stt": 54, "code": "HVHC", "name": "Học viện Hành chính Quốc gia", "region": "Miền Bắc", "type": "Hành chính", "website": "napa.vn"},
+    {"stt": 55, "code": "VNU-HN", "name": "ĐH Quốc gia Hà Nội", "region": "Miền Bắc", "type": "Hệ thống", "website": "vnu.edu.vn"},
+    {"stt": 6, "code": "TNU", "name": "ĐH Thái Nguyên", "region": "Miền Bắc", "type": "Hệ thống"},
+    {"stt": 7, "code": "HUBT", "name": "ĐH Kinh doanh & Công nghệ HN", "region": "Miền Bắc", "type": "Kinh tế"},
+    {"stt": 8, "code": "DHKD", "name": "ĐH Kinh doanh Công nghệ", "region": "Miền Bắc", "type": "Kinh tế"},
+    {"stt": 9, "code": "NEU", "name": "ĐH Kinh tế Quốc dân", "region": "Miền Bắc", "type": "Kinh tế"},
+    {"stt": 10, "code": "FTU", "name": "ĐH Ngoại thương", "region": "Miền Bắc", "type": "Kinh tế"},
+    {"stt": 11, "code": "TMU", "name": "ĐH Thương mại", "region": "Miền Bắc", "type": "Kinh tế"},
+    {"stt": 12, "code": "HUST", "name": "ĐH Bách khoa Hà Nội", "region": "Miền Bắc", "type": "Kỹ thuật"},
+    {"stt": 13, "code": "HIT", "name": "ĐH Công nghiệp Hà Nội", "region": "Miền Bắc", "type": "Kỹ thuật"},
+    {"stt": 14, "code": "TLU", "name": "ĐH Thủy lợi", "region": "Miền Bắc", "type": "Kỹ thuật"},
+    {"stt": 15, "code": "XDHN", "name": "ĐH Xây dựng Hà Nội", "region": "Miền Bắc", "type": "Kỹ thuật"},
+    {"stt": 16, "code": "HLU", "name": "ĐH Luật Hà Nội", "region": "Miền Bắc", "type": "Luật"},
+    {"stt": 17, "code": "HANU", "name": "ĐH Hà Nội", "region": "Miền Bắc", "type": "Ngôn ngữ"},
+    {"stt": 18, "code": "DHHN", "name": "ĐH Hà Nội", "region": "Miền Bắc", "type": "Ngôn ngữ"},
+    {"stt": 19, "code": "ULIS", "name": "ĐH Ngoại ngữ - ĐHQGHN", "region": "Miền Bắc", "type": "Ngôn ngữ"},
+    {"stt": 20, "code": "HUA", "name": "HV Nông nghiệp Việt Nam", "region": "Miền Bắc", "type": "Nông nghiệp"},
+    {"stt": 21, "code": "VNUA", "name": "HV Nông nghiệp Việt Nam", "region": "Miền Bắc", "type": "Nông nghiệp"},
+    {"stt": 22, "code": "LHU", "name": "ĐH Lâm nghiệp", "region": "Miền Bắc", "type": "Nông nghiệp"},
+    {"stt": 23, "code": "VNUF", "name": "ĐH Lâm nghiệp", "region": "Miền Bắc", "type": "Nông nghiệp"},
+    {"stt": 24, "code": "MTA", "name": "Học viện Kỹ thuật Quân sự", "region": "Miền Bắc", "type": "Quân sự"},
+    {"stt": 25, "code": "PKA", "name": "Học viện Phòng không - Không quân", "region": "Miền Bắc", "type": "Quân sự"},
+    {"stt": 26, "code": "DAV", "name": "Học viện Ngoại giao", "region": "Miền Bắc", "type": "Quốc tế"},
+    {"stt": 27, "code": "HVNG", "name": "Học viện Ngoại giao", "region": "Miền Bắc", "type": "Quốc tế"},
+    {"stt": 28, "code": "VGU-HN", "name": "ĐH Việt Đức (HN)", "region": "Miền Bắc", "type": "Quốc tế"},
+    {"stt": 29, "code": "SPHN", "name": "ĐH Sư phạm Hà Nội", "region": "Miền Bắc", "type": "Sư phạm"},
+    {"stt": 30, "code": "SPHN2", "name": "ĐH Sư phạm Hà Nội 2", "region": "Miền Bắc", "type": "Sư phạm"},
+    {"stt": 31, "code": "BA", "name": "Học viện Ngân hàng", "region": "Miền Bắc", "type": "Tài chính"},
+    {"stt": 32, "code": "HVNH", "name": "Học viện Ngân hàng", "region": "Miền Bắc", "type": "Tài chính"},
+    {"stt": 33, "code": "AOF", "name": "Học viện Tài chính", "region": "Miền Bắc", "type": "Tài chính"},
+    {"stt": 34, "code": "HVTC", "name": "Học viện Tài chính", "region": "Miền Bắc", "type": "Tài chính"},
+    {"stt": 35, "code": "AJC", "name": "HV Báo chí Tuyên truyền", "region": "Miền Bắc", "type": "Xã hội"},
+    {"stt": 36, "code": "HVBC", "name": "HV Báo chí Tuyên truyền", "region": "Miền Bắc", "type": "Xã hội"},
+    {"stt": 37, "code": "USSH-HN", "name": "ĐH KHXH&NV Hà Nội", "region": "Miền Bắc", "type": "Xã hội"},
+    {"stt": 38, "code": "HUP", "name": "ĐH Dược Hà Nội", "region": "Miền Bắc", "type": "Y dược"},
+    {"stt": 39, "code": "YDHP", "name": "ĐH Y Dược Hải Phòng", "region": "Miền Bắc", "type": "Y dược"},
+    {"stt": 40, "code": "HMU", "name": "ĐH Y Hà Nội", "region": "Miền Bắc", "type": "Y dược"},
+    {"stt": 41, "code": "YHN", "name": "ĐH Y Hà Nội", "region": "Miền Bắc", "type": "Y dược"},
+    {"stt": 42, "code": "YTB", "name": "ĐH Y Thái Bình", "region": "Miền Bắc", "type": "Y dược"},
+    {"stt": 43, "code": "DHBG", "name": "ĐH Bắc Giang", "region": "Miền Bắc", "type": "Đa ngành"},
+    {"stt": 44, "code": "DHHP", "name": "ĐH Hải Phòng", "region": "Miền Bắc", "type": "Đa ngành"},
+    {"stt": 45, "code": "DHLA", "name": "ĐH Lào Cai", "region": "Miền Bắc", "type": "Đa ngành"},
+    {"stt": 46, "code": "DHQN", "name": "ĐH Quảng Ninh", "region": "Miền Bắc", "type": "Đa ngành"},
+    {"stt": 47, "code": "VKU", "name": "ĐH CNTT & TT Việt Hàn", "region": "Miền Trung", "type": "CNTT"},
+    {"stt": 48, "code": "HUE", "name": "ĐH Huế", "region": "Miền Trung", "type": "Hệ thống"},
+    {"stt": 49, "code": "UDN", "name": "ĐH Đà Nẵng", "region": "Miền Trung", "type": "Hệ thống"},
+    {"stt": 50, "code": "DHKH-HUE", "name": "ĐH Khoa học Huế", "region": "Miền Trung", "type": "Khoa học"},
+    {"stt": 51, "code": "DUE", "name": "ĐH Kinh tế Đà Nẵng", "region": "Miền Trung", "type": "Kinh tế"},
+    {"stt": 52, "code": "DUT", "name": "ĐH Bách khoa Đà Nẵng", "region": "Miền Trung", "type": "Kỹ thuật"},
+    {"stt": 53, "code": "HUFLIT", "name": "ĐH Ngoại ngữ Huế", "region": "Miền Trung", "type": "Ngôn ngữ"},
+    {"stt": 54, "code": "UFLS", "name": "ĐH Ngoại ngữ Đà Nẵng", "region": "Miền Trung", "type": "Ngôn ngữ"},
+    {"stt": 55, "code": "DHNL-HUE", "name": "ĐH Nông lâm Huế", "region": "Miền Trung", "type": "Nông nghiệp"},
+    {"stt": 56, "code": "DHSP-HUE", "name": "ĐH Sư phạm Huế", "region": "Miền Trung", "type": "Sư phạm"},
+    {"stt": 57, "code": "NTU", "name": "ĐH Nha Trang", "region": "Miền Trung", "type": "Thủy sản"},
+    {"stt": 58, "code": "DHKY", "name": "ĐH Kỹ thuật Y dược Đà Nẵng", "region": "Miền Trung", "type": "Y dược"},
+    {"stt": 59, "code": "YDN", "name": "ĐH Y Dược Đà Nẵng", "region": "Miền Trung", "type": "Y dược"},
+    {"stt": 60, "code": "YTH", "name": "ĐH Y Thanh Hóa", "region": "Miền Trung", "type": "Y dược"},
+    {"stt": 61, "code": "DTU", "name": "ĐH Duy Tân", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 62, "code": "DHA", "name": "ĐH Hà Tĩnh", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 63, "code": "DNI", "name": "ĐH Nha Trang", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 64, "code": "QUI", "name": "ĐH Quy Nhơn", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 65, "code": "QNU", "name": "ĐH Quy Nhơn", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 66, "code": "DHQB", "name": "ĐH Quảng Bình", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 67, "code": "DQN2", "name": "ĐH Quảng Nam", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 68, "code": "DHTN", "name": "ĐH Tây Nguyên", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 69, "code": "DLU", "name": "ĐH Đà Lạt", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 70, "code": "DHDL", "name": "ĐH Đông Á", "region": "Miền Trung", "type": "Đa ngành"},
+    {"stt": 71, "code": "BVS", "name": "HV Công nghệ Bưu chính Viễn thông (phía Nam)", "region": "Miền Nam", "type": "CNTT"},
+    {"stt": 72, "code": "KMA.HCM", "name": "HV Kỹ thuật Mật mã (phía Nam)", "region": "Miền Nam", "type": "CNTT"},
+    {"stt": 73, "code": "QSC", "name": "ĐH CNTT - ĐHQG HCM", "region": "Miền Nam", "type": "CNTT"},
+    {"stt": 74, "code": "FPT.HCM", "name": "ĐH FPT TP.HCM", "region": "Miền Nam", "type": "CNTT"},
+    {"stt": 75, "code": "DNT", "name": "ĐH Ngoại ngữ - Tin học TP.HCM", "region": "Miền Nam", "type": "CNTT"},
+    {"stt": 76, "code": "ANS", "name": "ĐH An ninh Nhân dân", "region": "Miền Nam", "type": "Công an"},
+    {"stt": 77, "code": "ANND", "name": "ĐH An ninh Nhân dân", "region": "Miền Nam", "type": "Công an"},
+    {"stt": 78, "code": "CSS", "name": "ĐH Cảnh sát Nhân dân", "region": "Miền Nam", "type": "Công an"},
+    {"stt": 79, "code": "CSND", "name": "ĐH Cảnh sát Nhân dân", "region": "Miền Nam", "type": "Công an"},
+    {"stt": 80, "code": "HHK", "name": "HV Hàng không Việt Nam", "region": "Miền Nam", "type": "Hàng không"},
+    {"stt": 81, "code": "HVC", "name": "Học viện Cán bộ TP.HCM", "region": "Miền Nam", "type": "Hành chính"},
+    {"stt": 82, "code": "QST", "name": "ĐH KHTN - ĐHQG HCM", "region": "Miền Nam", "type": "Khoa học"},
+    {"stt": 83, "code": "UEL2", "name": "ĐH Kinh tế - Luật (CS2)", "region": "Miền Nam", "type": "Kinh tế"},
+    {"stt": 84, "code": "UEF", "name": "ĐH Kinh tế - Tài chính TP.HCM", "region": "Miền Nam", "type": "Kinh tế"},
+    {"stt": 85, "code": "DLA", "name": "ĐH Kinh tế Công nghiệp Long An", "region": "Miền Nam", "type": "Kinh tế"},
+    {"stt": 86, "code": "UEH", "name": "ĐH Kinh tế TP.HCM", "region": "Miền Nam", "type": "Kinh tế"},
+    {"stt": 87, "code": "DMS", "name": "ĐH Tài chính Marketing", "region": "Miền Nam", "type": "Kinh tế"},
+    {"stt": 88, "code": "DKB", "name": "ĐH Kinh tế Kỹ thuật Bình Dương", "region": "Miền Nam", "type": "Kinh tế/Kỹ thuật"},
+    {"stt": 89, "code": "QSK", "name": "ĐH Kinh tế - Luật", "region": "Miền Nam", "type": "Kinh tế/Luật"},
+    {"stt": 90, "code": "KTS", "name": "ĐH Kiến trúc TP.HCM", "region": "Miền Nam", "type": "Kiến trúc"},
+    {"stt": 91, "code": "QSB.HCM", "name": "ĐH Bách khoa - ĐHQG HCM", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 92, "code": "DCT", "name": "ĐH Công Thương TP.HCM", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 93, "code": "IUH", "name": "ĐH Công nghiệp TP.HCM", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 94, "code": "STU", "name": "ĐH Công nghệ Sài Gòn", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 95, "code": "HUTECH", "name": "ĐH Công nghệ TP.HCM", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 96, "code": "DCD", "name": "ĐH Công nghệ Đồng Nai", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 97, "code": "PVU", "name": "ĐH Dầu khí Việt Nam", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 98, "code": "GTS", "name": "ĐH GTVT TP.HCM", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 99, "code": "KCC", "name": "ĐH Kỹ thuật Công nghệ Cần Thơ", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 100, "code": "DLH", "name": "ĐH Lạc Hồng", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 101, "code": "SPK", "name": "ĐH SPKT TP.HCM", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 102, "code": "HCMUTE", "name": "ĐH SPKT TP.HCM", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 103, "code": "VGU", "name": "ĐH Việt Đức", "region": "Miền Nam", "type": "Kỹ thuật"},
+    {"stt": 104, "code": "LPS", "name": "ĐH Luật TP.HCM", "region": "Miền Nam", "type": "Luật"},
+    {"stt": 105, "code": "MTS", "name": "ĐH Mỹ thuật TP.HCM", "region": "Miền Nam", "type": "Nghệ thuật"},
+    {"stt": 106, "code": "DSD", "name": "ĐH Sân khấu Điện ảnh TP.HCM", "region": "Miền Nam", "type": "Nghệ thuật"},
+    {"stt": 107, "code": "NLS", "name": "ĐH Nông Lâm TP.HCM", "region": "Miền Nam", "type": "Nông nghiệp"},
+    {"stt": 108, "code": "LBH", "name": "ĐH Nguyễn Huệ", "region": "Miền Nam", "type": "Quân sự"},
+    {"stt": 109, "code": "VPH", "name": "ĐH Trần Đại Nghĩa", "region": "Miền Nam", "type": "Quân sự"},
+    {"stt": 110, "code": "QSQ", "name": "ĐH Quốc tế - ĐHQG HCM", "region": "Miền Nam", "type": "Quốc tế"},
+    {"stt": 111, "code": "EIU", "name": "ĐH Quốc tế Miền Đông", "region": "Miền Nam", "type": "Quốc tế"},
+    {"stt": 112, "code": "SIU", "name": "ĐH Quốc tế Sài Gòn", "region": "Miền Nam", "type": "Quốc tế"},
+    {"stt": 113, "code": "RMIT.HCM", "name": "ĐH RMIT Việt Nam", "region": "Miền Nam", "type": "Quốc tế"},
+    {"stt": 114, "code": "HSU", "name": "ĐH Hoa Sen", "region": "Miền Nam", "type": "Quốc tế/Thiết kế"},
+    {"stt": 115, "code": "SPS", "name": "ĐH Sư phạm TP.HCM", "region": "Miền Nam", "type": "Sư phạm"},
+    {"stt": 116, "code": "SPD", "name": "ĐH Đồng Tháp", "region": "Miền Nam", "type": "Sư phạm"},
+    {"stt": 117, "code": "SGD", "name": "ĐH Sài Gòn", "region": "Miền Nam", "type": "Sư phạm/Đa ngành"},
+    {"stt": 118, "code": "STS", "name": "ĐH TDTT TP.HCM", "region": "Miền Nam", "type": "Thể thao"},
+    {"stt": 119, "code": "NHS", "name": "ĐH Ngân hàng TP.HCM", "region": "Miền Nam", "type": "Tài chính"},
+    {"stt": 120, "code": "MTU", "name": "ĐH Xây dựng Miền Tây", "region": "Miền Nam", "type": "Xây dựng"},
+    {"stt": 121, "code": "QSX", "name": "ĐH KHXH&NV - ĐHQG HCM", "region": "Miền Nam", "type": "Xã hội"},
+    {"stt": 122, "code": "VHS", "name": "ĐH Văn hóa TP.HCM", "region": "Miền Nam", "type": "Xã hội"},
+    {"stt": 123, "code": "PNTU", "name": "ĐH Phạm Ngọc Thạch", "region": "Miền Nam", "type": "Y dược"},
+    {"stt": 124, "code": "HIU", "name": "ĐH Quốc tế Hồng Bàng", "region": "Miền Nam", "type": "Y dược"},
+    {"stt": 125, "code": "YCT2", "name": "ĐH Y Cần Thơ", "region": "Miền Nam", "type": "Y dược"},
+    {"stt": 126, "code": "YCT", "name": "ĐH Y Dược Cần Thơ", "region": "Miền Nam", "type": "Y dược"},
+    {"stt": 127, "code": "CTUMP", "name": "ĐH Y Dược Cần Thơ", "region": "Miền Nam", "type": "Y dược"},
+    {"stt": 128, "code": "YDS", "name": "ĐH Y Dược TP.HCM", "region": "Miền Nam", "type": "Y dược"},
+    {"stt": 129, "code": "QSA", "name": "ĐH An Giang", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 130, "code": "AGU", "name": "ĐH An Giang (ĐHQG HCM)", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 131, "code": "BVU", "name": "ĐH Bà Rịa Vũng Tàu", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 132, "code": "DBD", "name": "ĐH Bình Dương", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 133, "code": "DBL", "name": "ĐH Bạc Liêu", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 134, "code": "TCT.CT", "name": "ĐH Cần Thơ", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 135, "code": "DCL", "name": "ĐH Cửu Long", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 136, "code": "GDU", "name": "ĐH Gia Định", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 137, "code": "TKG", "name": "ĐH Kiên Giang", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 138, "code": "DLA2", "name": "ĐH Long An", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 139, "code": "MBS", "name": "ĐH Mở TP.HCM", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 140, "code": "OU", "name": "ĐH Mở TP.HCM", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 141, "code": "DNC", "name": "ĐH Nam Cần Thơ", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 142, "code": "NTT", "name": "ĐH Nguyễn Tất Thành", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 143, "code": "TDM", "name": "ĐH Thủ Dầu Một", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 144, "code": "TTG", "name": "ĐH Tiền Giang", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 145, "code": "DVT", "name": "ĐH Trà Vinh", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 146, "code": "DTD", "name": "ĐH Tây Đô", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 147, "code": "DTT", "name": "ĐH Tôn Đức Thắng", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 148, "code": "VTT", "name": "ĐH Võ Trường Toản", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 149, "code": "DVH", "name": "ĐH Văn Hiến", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 150, "code": "VLU", "name": "ĐH Văn Lang", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 151, "code": "DNU", "name": "ĐH Đồng Nai", "region": "Miền Nam", "type": "Đa ngành"},
+    {"stt": 152, "code": "FINAL", "name": "ĐH Tổng hợp Việt Nam (placeholder)", "region": "Toàn quốc", "type": "Đa ngành"}
+  ];
+
+  function renderUniversities(filter = {}) {
+    const list = document.getElementById('uni-list');
+    let filtered = universitiesData.slice(); // work with copy
+
+    if (filter.search) {
+      const s = filter.search.toLowerCase();
+      filtered = filtered.filter(u => u.name.toLowerCase().includes(s));
+    }
+    if (filter.region) {
+      filtered = filtered.filter(u => u.region === filter.region);
+    }
+    if (filter.type) {
+      filtered = filtered.filter(u => u.type === filter.type);
+    }
+
+    document.getElementById('uni-count').textContent = filtered.length;
+    list.innerHTML = '';
+
+    filtered.forEach(uni => {
+      const item = document.createElement('div');
+      item.className = 'p-5 hover:bg-slate-subtle transition-colors cursor-pointer';
+      item.innerHTML = `
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1 min-w-0">
+            <h4 class="font-semibold text-sm mb-2" style="color:#1a1a1a;">${uni.name}</h4>
+            <div class="flex items-center gap-3 flex-wrap mb-3">
+              <span class="text-xs px-2.5 py-1 rounded-full" style="background:#F3F2EF; color:#666;">${uni.region}</span>
+              <span class="text-xs px-2.5 py-1 rounded-full" style="background:#F3F2EF; color:#666;">${uni.type}</span>
+            </div>
+            ${uni.website ? `<a href="https://${uni.website}" target="_blank" rel="noopener noreferrer" class="text-xs font-medium transition-colors hover:text-white flex items-center gap-1.5 w-fit px-3 py-1.5 rounded-lg" style="color:#A51C30; background:rgba(165,28,48,0.1);" onclick="event.stopPropagation();">
+              <i data-lucide="globe" style="width:12px; height:12px;"></i>
+              ${uni.website}
+            </a>` : '<span class="text-xs" style="color:#ccc;">Không có website</span>'}
+          </div>
+        </div>
+      `;
+      list.appendChild(item);
+    });
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<div class="p-8 text-center"><p style="color:#999;">Không tìm thấy trường nào</p></div>';
+    }
+    
+    lucide.createIcons();
+  }
+
+  function filterUniversities() {
+    const search = document.getElementById('uni-search').value;
+    const region = document.getElementById('uni-filter-region').value;
+    const type = document.getElementById('uni-filter-type').value;
+    renderUniversities({ search, region, type });
+  }
+
+  function clearUniFilters() {
+    document.getElementById('uni-search').value = '';
+    document.getElementById('uni-filter-region').value = '';
+    document.getElementById('uni-filter-type').value = '';
+    renderUniversities();
+  }
+
+  function viewUniDetail(code) {
+    const uni = universitiesData.find(u => u.code === code);
+    if (uni) {
+      alert(`${uni.name}\n${uni.region} · ${uni.type}\nCode: ${uni.code}`);
+    }
+  }
+
+  // Initialize universities list
+  renderUniversities();
+  document.getElementById('uni-search').addEventListener('keyup', filterUniversities);
+  document.getElementById('uni-filter-region').addEventListener('change', filterUniversities);
+  document.getElementById('uni-filter-type').addEventListener('change', filterUniversities);
+
+  // ─── Element SDK ───
+  const defaultConfig = {
+    university_name: 'Làng CS',
+    hero_title: 'Hệ thống Tính Điểm Tuyển Sinh 2026',
+    hero_subtitle: 'Khám phá cơ hội học tập tại các trường đại học hàng đầu. Tính điểm xét tuyển, tra cứu ngành học và chuẩn bị hồ sơ ngay hôm nay.',
+    cta_button_text: 'Tính điểm xét tuyển',
+    footer_text: '© 2026 Làng CS. Bảo lưu mọi quyền.',
+    background_color: '#A51C30',
+    surface_color: '#FAF9F6',
+    text_color: '#1a1a1a',
+    primary_action_color: '#A51C30',
+    secondary_action_color: '#1a1a1a',
+    font_family: 'Playfair Display',
+    font_size: 16
+  };
+
+  function applyConfig(config) {
+    const c = { ...defaultConfig, ...config };
+
+    document.getElementById('nav-uni-name').textContent = c.university_name;
+    document.getElementById('hero-title').innerHTML = (c.hero_title || defaultConfig.hero_title).replace(/\n/g, '<br>');
+    document.getElementById('hero-subtitle').textContent = c.hero_subtitle;
+    document.getElementById('hero-cta-text').textContent = c.cta_button_text;
+    document.getElementById('footer-uni-name').textContent = c.university_name;
+    document.getElementById('footer-copyright').textContent = c.footer_text;
+
+    const bg = c.background_color;
+    document.getElementById('hero').style.background = `linear-gradient(165deg, ${bg} 0%, ${adjustColor(bg, -15)} 60%, ${adjustColor(bg, -30)} 100%)`;
+    document.getElementById('nav-logo-bg').style.background = bg;
+    document.getElementById('nav-cta').style.background = bg;
+    document.getElementById('exam-calc-btn').style.background = bg;
+    document.getElementById('transcript-calc-btn').style.background = bg;
+    document.getElementById('download-btn').style.background = bg;
+    document.getElementById('hero-cta').style.background = bg;
+
+    ['exam-result', 'transcript-result'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.style.borderColor = bg; el.style.background = hexToRgba(bg, 0.04); }
+    });
+    ['exam-total', 'transcript-total', 'results-total-score'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.color = bg;
+    });
+    ['exam-bar', 'transcript-bar', 'results-progress'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.background = bg;
+    });
+
+    const sections = document.querySelectorAll('.bg-ivory');
+    sections.forEach(s => s.style.background = c.surface_color);
+
+    const fontFamily = c.font_family || defaultConfig.font_family;
+    const baseFontStack = 'Georgia, serif';
+    document.querySelectorAll('.font-display').forEach(el => {
+      el.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+    });
+  }
+
+  function adjustColor(hex, amount) {
+    hex = hex.replace('#', '');
+    const r = Math.max(0, Math.min(255, parseInt(hex.substr(0, 2), 16) + amount));
+    const g = Math.max(0, Math.min(255, parseInt(hex.substr(2, 2), 16) + amount));
+    const b = Math.max(0, Math.min(255, parseInt(hex.substr(4, 2), 16) + amount));
+    return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+  }
+
+  function hexToRgba(hex, alpha) {
+    hex = hex.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    return `rgba(${r},${g},${b},${alpha})`;
+  }
+
+  if (window.elementSdk) {
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => applyConfig(config),
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+          { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+          { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+          { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+        }
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['university_name', config.university_name || defaultConfig.university_name],
+        ['hero_title', config.hero_title || defaultConfig.hero_title],
+        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+        ['cta_button_text', config.cta_button_text || defaultConfig.cta_button_text],
+        ['footer_text', config.footer_text || defaultConfig.footer_text]
+      ])
+    });
+  }
+
+  lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e2f83df675afd8b',t:'MTc3NDYyNjI1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
