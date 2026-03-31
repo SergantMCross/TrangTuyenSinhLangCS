@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thư viện tài liệu - PDF / DOCX</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="./tailwind-config.js"></script>
+  <link rel="stylesheet" href="./style.css">
+ </head>
+ <body class="h-full">
+  <div class="app-root bg-white" id="app-root">
+   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-mid">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex items-center gap-3">
+       <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-medium hover:opacity-90" style="color:#A51C30;">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Quay lại
+       </a>
+       <h1 class="font-display text-lg sm:text-xl font-bold" style="color:#1a1a1a;">Thư viện tài liệu</h1>
+      </div>
+      <div class="flex items-center gap-3">
+       <span class="text-xs sm:text-sm" style="color:#666;">Chỉ hiển thị `pdf`/`docx`</span>
+      </div>
+     </div>
+    </div>
+   </header>
+
+   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+    <section class="bg-ivory rounded-2xl border border-slate-mid p-4 sm:p-6">
+     <div class="flex flex-col lg:flex-row lg:items-end gap-4 lg:gap-6">
+      <div class="flex-1">
+       <label for="doc-search" class="block text-xs font-medium mb-2" style="color:#555;">Tìm kiếm</label>
+       <div class="relative">
+        <input id="doc-search" type="text" placeholder="Nhập tên tài liệu..." class="w-full px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB;">
+        <i data-lucide="search" class="absolute right-3 top-3.5 w-5 h-5 opacity-40" style="color:#999;"></i>
+       </div>
+      </div>
+
+      <div class="flex gap-3">
+       <div>
+        <label for="doc-type" class="block text-xs font-medium mb-2" style="color:#555;">Loại</label>
+        <select id="doc-type" class="px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB; min-width:160px;">
+         <option value="all">Tất cả</option>
+         <option value="pdf">PDF</option>
+         <option value="docx">DOCX</option>
+        </select>
+       </div>
+
+       <div>
+        <label for="doc-sort" class="block text-xs font-medium mb-2" style="color:#555;">Sắp xếp</label>
+        <select id="doc-sort" class="px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB; min-width:200px;">
+         <option value="name_asc">Tên (A-Z)</option>
+         <option value="name_desc">Tên (Z-A)</option>
+         <option value="newest">Mới nhất</option>
+         <option value="oldest">Cũ nhất</option>
+        </select>
+       </div>
+      </div>
+     </div>
+
+     <div class="mt-4 flex items-center justify-between gap-3 flex-wrap">
+      <p class="text-sm" style="color:#666;"><span id="doc-count">0</span> tài liệu</p>
+      <div class="flex items-center gap-2">
+       <button id="doc-clear" class="text-xs font-medium px-3 py-2 rounded-lg transition-all" style="color:#A51C30; background:rgba(165,28,48,0.08);">Xóa bộ lọc</button>
+      </div>
+     </div>
+    </section>
+
+    <section class="mt-6">
+     <div id="doc-empty" class="hidden text-center bg-ivory border border-slate-mid rounded-2xl p-8" style="color:#666;">
+      <div class="mx-auto w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(165,28,48,0.08); color:#A51C30;">
+       <i data-lucide="file-search" class="w-5 h-5"></i>
+      </div>
+      <p class="mt-4 font-semibold">Không tìm thấy tài liệu</p>
+      <p class="text-sm mt-1">Thử đổi từ khóa hoặc bộ lọc.</p>
+     </div>
+
+     <div id="documents-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5"></div>
+    </section>
+   </main>
+  </div>
+
+  <script src="./documents-grid.js"></script>
+ </body>
+</html>
