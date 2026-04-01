@@ -3,86 +3,459 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thư viện tài liệu - PDF / DOCX</title>
+  <title>Thư viện tài liệu Toán học</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="./tailwind-config.js"></script>
-  <link rel="stylesheet" href="./style.css">
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: '#0B1F3A',
+        sky1: '#E8F4FD',
+        sky2: '#D0EAFB',
+        sky3: '#B0D9F5',
+        teal1: '#0EA5E9',
+        teal2: '#0284C7',
+        teal3: '#0369A1',
+      }
+    }
+  }
+}
+</script>
+  <style>
+html, body { height: 100%; margin: 0; }
+body { font-family: 'DM Sans', sans-serif; }
+.font-serif-custom { font-family: 'Source Serif 4', Georgia, serif; }
+
+.glass {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.file-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.file-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(11,31,58,0.10);
+}
+
+.pill-btn {
+  transition: all 0.2s ease;
+}
+.pill-btn.active, .pill-btn:hover {
+  background: #0EA5E9;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(14,165,233,0.3);
+}
+
+.tree-item { transition: background 0.15s ease; }
+.tree-item:hover { background: rgba(14,165,233,0.08); }
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(20px); }
+  to { opacity:1; transform: translateY(0); }
+}
+.anim-up { animation: fadeUp 0.5s ease forwards; opacity:0; }
+.anim-d1 { animation-delay: 0.1s; }
+.anim-d2 { animation-delay: 0.2s; }
+.anim-d3 { animation-delay: 0.3s; }
+.anim-d4 { animation-delay: 0.4s; }
+
+.hero-bg {
+  background: linear-gradient(135deg, #E8F4FD 0%, #D0EAFB 40%, #B0D9F5 100%);
+}
+
+.sticky-header {
+  position: sticky; top:0; z-index: 50;
+  transition: box-shadow 0.3s ease;
+}
+.sticky-header.scrolled {
+  box-shadow: 0 2px 20px rgba(11,31,58,0.08);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #B0D9F5; border-radius: 3px; }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full">
-  <div class="app-root bg-white" id="app-root">
-   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-mid">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-      <div class="flex items-center gap-3">
-       <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-medium hover:opacity-90" style="color:#A51C30;">
-        <i data-lucide="arrow-left" class="w-4 h-4"></i> Quay lại
-       </a>
-       <h1 class="font-display text-lg sm:text-xl font-bold" style="color:#1a1a1a;">Thư viện tài liệu</h1>
+ <body class="h-full bg-white text-navy overflow-auto">
+  <div id="app-root" class="w-full h-full"><!-- STICKY HEADER -->
+   <header id="site-header" class="sticky-header glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-teal1 flex items-center justify-center">
+       <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+       </svg>
+      </div><span class="font-serif-custom font-bold text-lg text-navy hidden sm:inline" id="nav-title">MathLib</span>
+     </div>
+     <nav class="flex items-center gap-1 sm:gap-2 text-sm font-medium"><a href="#library" class="px-3 py-1.5 rounded-full hover:bg-sky1 transition">Thư viện</a> <a href="#folders" class="px-3 py-1.5 rounded-full hover:bg-sky1 transition">Thư mục</a> <a href="#footer-section" class="px-3 py-1.5 rounded-full hover:bg-sky1 transition">Liên hệ</a>
+     </nav>
+    </div>
+   </header><!-- HERO -->
+   <section class="hero-bg w-full py-16 sm:py-24 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+     <h1 id="hero-title" class="font-serif-custom text-3xl sm:text-5xl font-bold text-navy leading-tight anim-up">Thư viện tài liệu Toán học</h1>
+     <p id="hero-subtitle" class="mt-4 text-base sm:text-lg text-navy/70 anim-up anim-d1">Tải đề, luyện tập từ cơ bản đến nâng cao</p>
+     <div class="mt-8 flex flex-col sm:flex-row gap-3 max-w-xl mx-auto anim-up anim-d2">
+      <div class="flex-1 relative"><i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-navy/40"></i> <input id="search-input" type="text" placeholder="Tìm theo chủ đề, từ khóa..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-sky3/30 bg-white/80 backdrop-blur focus:outline-none focus:ring-2 focus:ring-teal1/40 text-sm">
+      </div><button id="cta-btn" onclick="document.getElementById('library').scrollIntoView({behavior:'smooth'})" class="px-6 py-3 bg-teal1 hover:bg-teal2 text-white font-semibold rounded-xl shadow-lg shadow-teal1/20 transition text-sm whitespace-nowrap">Khám phá ngay</button>
+     </div>
+    </div>
+   </section><!-- FILTERS -->
+   <section class="w-full bg-white border-b border-sky2/40 py-5 px-4 anim-up anim-d3">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex flex-wrap gap-6 items-start">
+      <div><span class="text-xs font-semibold text-navy/50 uppercase tracking-wider mb-2 block">Cấp độ</span>
+       <div class="flex gap-2" id="level-filters"><button class="pill-btn active px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-level="all">Tất cả</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-level="basic">Cơ bản</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-level="intermediate">Trung bình</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-level="advanced">Nâng cao</button>
+       </div>
       </div>
-      <div class="flex items-center gap-3">
-       <span class="text-xs sm:text-sm" style="color:#666;">Chỉ hiển thị `pdf`/`docx`</span>
+      <div><span class="text-xs font-semibold text-navy/50 uppercase tracking-wider mb-2 block">Chủ đề</span>
+       <div class="flex flex-wrap gap-2" id="topic-filters"><button class="pill-btn active px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-topic="all">Tất cả</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-topic="algebra">Đại số</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-topic="geometry">Hình học</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-topic="probability">Xác suất</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-topic="calculus">Giải tích</button>
+       </div>
+      </div>
+      <div><span class="text-xs font-semibold text-navy/50 uppercase tracking-wider mb-2 block">Loại tệp</span>
+       <div class="flex flex-wrap gap-2" id="type-filters"><button class="pill-btn active px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-type="all">Tất cả</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-type="pdf">PDF</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-type="docx">DOCX</button> <button class="pill-btn px-4 py-1.5 rounded-full text-sm font-medium bg-sky1 text-navy border border-sky3/20" data-type="excel">Excel</button>
+       </div>
+      </div>
+      <div class="w-full sm:w-auto">
+        <label for="sort-select" class="text-xs font-semibold text-navy/50 uppercase tracking-wider mb-2 block">Sắp xếp</label>
+        <select id="sort-select" class="w-full sm:w-auto rounded-xl border border-sky3/30 px-3 py-2 text-sm bg-white">
+          <option value="name_asc">Tên A → Z</option>
+          <option value="name_desc">Tên Z → A</option>
+          <option value="newest" selected>Mới nhất</option>
+          <option value="oldest">Cũ nhất</option>
+        </select>
       </div>
      </div>
     </div>
-   </header>
-
-   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-    <section class="bg-ivory rounded-2xl border border-slate-mid p-4 sm:p-6">
-     <div class="flex flex-col lg:flex-row lg:items-end gap-4 lg:gap-6">
-      <div class="flex-1">
-       <label for="doc-search" class="block text-xs font-medium mb-2" style="color:#555;">Tìm kiếm</label>
-       <div class="relative">
-        <input id="doc-search" type="text" placeholder="Nhập tên tài liệu..." class="w-full px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB;">
-        <i data-lucide="search" class="absolute right-3 top-3.5 w-5 h-5 opacity-40" style="color:#999;"></i>
-       </div>
+   </section><!-- MAIN CONTENT: LIBRARY + SIDEBAR -->
+   <section id="library" class="w-full max-w-6xl mx-auto px-4 py-10 flex flex-col lg:flex-row gap-8"><!-- SIDEBAR FOLDER TREE -->
+    <aside id="folders" class="lg:w-64 shrink-0 order-2 lg:order-1">
+     <div class="glass rounded-2xl p-5 border border-sky2/50">
+      <h3 class="font-semibold text-sm text-navy/60 uppercase tracking-wider mb-3 flex items-center gap-2"><i data-lucide="folder-tree" class="w-4 h-4"></i> Thư mục</h3>
+      <div id="folder-tree" class="text-sm space-y-0.5"><!-- rendered by JS -->
       </div>
-
-      <div class="flex gap-3">
-       <div>
-        <label for="doc-type" class="block text-xs font-medium mb-2" style="color:#555;">Loại</label>
-        <select id="doc-type" class="px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB; min-width:160px;">
-         <option value="all">Tất cả</option>
-         <option value="pdf">PDF</option>
-         <option value="docx">DOCX</option>
-        </select>
-       </div>
-
-       <div>
-        <label for="doc-sort" class="block text-xs font-medium mb-2" style="color:#555;">Sắp xếp</label>
-        <select id="doc-sort" class="px-4 py-3 rounded-xl border border-slate-mid bg-ivory text-sm transition-all" style="border-color:#E5E7EB; min-width:200px;">
-         <option value="name_asc">Tên (A-Z)</option>
-         <option value="name_desc">Tên (Z-A)</option>
-         <option value="newest">Mới nhất</option>
-         <option value="oldest">Cũ nhất</option>
-        </select>
-       </div>
+     </div><!-- SYNC INFO -->
+     <div class="mt-4 glass rounded-2xl p-4 border border-sky2/50">
+      <div class="flex items-center gap-2 text-teal2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="text-xs font-semibold uppercase tracking-wider">Đồng bộ</span>
       </div>
+      <p id="sync-msg" class="text-xs text-navy/60 mt-2 leading-relaxed">Ngân hàng đề được cập nhật tự động từ hệ thống local</p>
+      <p class="text-xs text-navy/40 mt-1">Cập nhật lần cuối: <span id="last-updated"></span></p>
      </div>
-
-     <div class="mt-4 flex items-center justify-between gap-3 flex-wrap">
-      <p class="text-sm" style="color:#666;"><span id="doc-count">0</span> tài liệu</p>
-      <div class="flex items-center gap-2">
-       <button id="doc-clear" class="text-xs font-medium px-3 py-2 rounded-lg transition-all" style="color:#A51C30; background:rgba(165,28,48,0.08);">Xóa bộ lọc</button>
-      </div>
+    </aside><!-- DOCUMENT GRID -->
+    <div class="flex-1 order-1 lg:order-2">
+     <div class="flex items-center justify-between mb-5">
+      <h2 class="font-serif-custom text-xl font-bold text-navy">Tài liệu</h2><span id="doc-count" class="text-sm text-navy/50"></span>
      </div>
-    </section>
-
-    <section class="mt-6">
-     <div id="doc-empty" class="hidden text-center bg-ivory border border-slate-mid rounded-2xl p-8" style="color:#666;">
-      <div class="mx-auto w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(165,28,48,0.08); color:#A51C30;">
-       <i data-lucide="file-search" class="w-5 h-5"></i>
-      </div>
-      <p class="mt-4 font-semibold">Không tìm thấy tài liệu</p>
-      <p class="text-sm mt-1">Thử đổi từ khóa hoặc bộ lọc.</p>
+     <div id="doc-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"><!-- rendered by JS -->
      </div>
-
-     <div id="documents-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5"></div>
-    </section>
-   </main>
+     <div id="no-results" class="hidden text-center py-16 text-navy/40"><i data-lucide="search-x" class="w-12 h-12 mx-auto mb-3 opacity-40"></i>
+      <p class="text-sm">Không tìm thấy tài liệu phù hợp.</p>
+     </div>
+    </div>
+   </section><!-- FOOTER -->
+   <footer id="footer-section" class="w-full bg-navy text-white/80 py-10 px-4 mt-10">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
+     <div class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-md bg-teal1 flex items-center justify-center">
+       <svg width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+       </svg>
+      </div><span class="font-serif-custom font-bold">MathLib</span>
+     </div>
+     <div class="flex gap-6"><span class="hover:text-white cursor-pointer transition">Giới thiệu</span> <span class="hover:text-white cursor-pointer transition">Liên hệ</span> <span class="hover:text-white cursor-pointer transition">Đóng góp</span>
+     </div><span class="text-white/40 text-xs">© 2025 MathLib. Mọi quyền được bảo lưu.</span>
+    </div>
+   </footer>
   </div>
+  <!-- Using manifest-based sync; inline script handles document rendering and polling -->
+  <script>
+// ── LOAD DOCUMENTS FROM MANIFEST JSON (documents/manifest.json) ──
+let DOCUMENTS = [];
 
-  <script src="./documents-grid.js"></script>
- </body>
+const FOLDERS = [
+  { path:"/math", label:"math", children:[
+    { path:"/math/basic", label:"basic", children:[] },
+    { path:"/math/intermediate", label:"intermediate", children:[] },
+    { path:"/math/advanced", label:"advanced", children:[] },
+  ]}
+];
+
+const LEVEL_LABELS = { basic:"Cơ bản", intermediate:"Trung bình", advanced:"Nâng cao" };
+const TOPIC_LABELS = { algebra:"Đại số", geometry:"Hình học", probability:"Xác suất", calculus:"Giải tích" };
+
+let activeLevel = "all";
+let activeTopic = "all";
+let activeType = "all";
+let activeSort = "newest";
+let searchQuery = "";
+let activeFolder = null;
+
+// ── RENDER FUNCTIONS ──
+function fileIcon(type) {
+  if (type === "pdf") return `<div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center shrink-0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>`;
+  if (type === "excel" || type === "xlsx" || type === "xls") return `<div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3V3z"/><path d="M7 7h10M7 11h10M7 15h10"/></svg></div>`;
+  return `<div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></div>`;
+}
+
+function renderDocs() {
+  let filtered = DOCUMENTS.filter(d => {
+    if (activeLevel !== "all" && d.level !== activeLevel) return false;
+    if (activeTopic !== "all" && d.topic !== activeTopic) return false;
+    if (activeType !== "all") {
+      const normalizedType = (d.type === 'xls' || d.type === 'xlsx') ? 'excel' : d.type;
+      if (normalizedType !== activeType) return false;
+    }
+    if (activeFolder && !d.folder?.startsWith(activeFolder)) return false;
+    if (searchQuery && !d.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    return true;
+  });
+
+  if (activeSort === 'name_asc') {
+    filtered.sort((a,b) => a.name.localeCompare(b.name, 'vi'));
+  } else if (activeSort === 'name_desc') {
+    filtered.sort((a,b) => b.name.localeCompare(a.name, 'vi'));
+  } else if (activeSort === 'newest') {
+    filtered.sort((a,b) => (b.lastModifiedMs || 0) - (a.lastModifiedMs || 0));
+  } else if (activeSort === 'oldest') {
+    filtered.sort((a,b) => (a.lastModifiedMs || 0) - (b.lastModifiedMs || 0));
+  }
+
+  const grid = document.getElementById("doc-grid");
+  const noRes = document.getElementById("no-results");
+  document.getElementById("doc-count").textContent = filtered.length + " tài liệu";
+
+  if (!filtered.length) { grid.innerHTML = ""; noRes.classList.remove("hidden"); return; }
+  noRes.classList.add("hidden");
+
+  grid.innerHTML = filtered.map(d => {
+    const normalizedType = (d.type === 'xls' || d.type === 'xlsx') ? 'excel' : d.type;
+    return `
+    <div class="file-card glass rounded-2xl p-4 border border-sky2/40 flex gap-3 items-start cursor-pointer group">
+      ${fileIcon(normalizedType)}
+      <div class="flex-1 min-w-0">
+        <h4 class="font-semibold text-sm text-navy truncate">${d.name}</h4>
+        <div class="flex flex-wrap gap-1.5 mt-1.5">
+          <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-sky1 text-teal3">${TOPIC_LABELS[d.topic] || 'Khác'}</span>
+          <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-sky1 text-navy/60">${LEVEL_LABELS[d.level] || 'Chung'}</span>
+          <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold uppercase ${(normalizedType==='pdf')?'bg-red-50 text-red-500':(normalizedType==='excel')?'bg-emerald-50 text-emerald-500':'bg-blue-50 text-blue-500'}">${normalizedType}</span>
+        </div>
+      </div>
+      <button class="shrink-0 w-9 h-9 rounded-xl bg-teal1/10 group-hover:bg-teal1 flex items-center justify-center transition" title="Tải xuống">
+        <i data-lucide="download" class="w-4 h-4 text-teal1 group-hover:text-white transition"></i>
+      </button>
+    </div>
+  `;
+  }).join("");
+  lucide.createIcons();
+}
+
+async function loadDocumentsManifest() {
+  try {
+    const res = await fetch(`./documents/manifest.json?ts=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Manifest fetch failed');
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error('Manifest is not array');
+
+    return data.map(f => ({
+      name: f.name,
+      type: f.type || detectFileType(f.name),
+      sizeBytes: Number(f.sizeBytes ?? f.length ?? 0),
+      lastModifiedMs: Number(f.lastModifiedMs ?? f.LastWriteTime ?? 0),
+      level: f.level || 'all',
+      topic: f.topic || 'all',
+      folder: f.folder || ''
+    }));
+  } catch (err) {
+    console.warn('Could not load manifest, falling back to existing DOCUMENTS', err);
+    return DOCUMENTS;
+  }
+}
+
+function documentsSignature(list) {
+  return list
+    .map(d => `${d.name}|${d.type}|${d.sizeBytes}|${d.lastModifiedMs}`)
+    .sort()
+    .join('\n');
+}
+
+async function syncDocumentManifest() {
+  const nodes = await loadDocumentsManifest();
+  const oldSig = documentsSignature(DOCUMENTS);
+  const newSig = documentsSignature(nodes);
+  if (oldSig !== newSig) {
+    DOCUMENTS = nodes;
+    renderDocs();
+  }
+}
+
+function startDocumentPolling() {
+  syncDocumentManifest();
+  setInterval(syncDocumentManifest, 10000);
+}
+
+function renderFolders() {
+  const tree = document.getElementById("folder-tree");
+  function build(nodes, depth) {
+    return nodes.map(n => {
+      const isActive = activeFolder === n.path;
+      const pad = depth * 16;
+      let html = `<button class="tree-item w-full text-left px-3 py-1.5 rounded-lg flex items-center gap-2 ${isActive?'bg-teal1/10 text-teal1 font-semibold':'text-navy/70'}" style="padding-left:${12+pad}px" data-folder="${n.path}">
+        <i data-lucide="${n.children.length?'folder':'folder-open'}" class="w-4 h-4 shrink-0"></i>
+        <span>${n.label}</span>
+      </button>`;
+      if (n.children.length) html += build(n.children, depth+1);
+      return html;
+    }).join("");
+  }
+  const resetBtn = `<button class="tree-item w-full text-left px-3 py-1.5 rounded-lg flex items-center gap-2 ${!activeFolder?'bg-teal1/10 text-teal1 font-semibold':'text-navy/70'}" data-folder="">
+    <i data-lucide="home" class="w-4 h-4 shrink-0"></i><span>Tất cả</span>
+  </button>`;
+  tree.innerHTML = resetBtn + build(FOLDERS, 0);
+
+  tree.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeFolder = btn.dataset.folder || null;
+      renderFolders();
+      renderDocs();
+    });
+  });
+  lucide.createIcons();
+}
+
+// ── FILTER EVENTS ──
+document.getElementById("level-filters").addEventListener("click", e => {
+  const btn = e.target.closest("[data-level]");
+  if (!btn) return;
+  activeLevel = btn.dataset.level;
+  document.querySelectorAll("#level-filters .pill-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderDocs();
+});
+
+document.getElementById("topic-filters").addEventListener("click", e => {
+  const btn = e.target.closest("[data-topic]");
+  if (!btn) return;
+  activeTopic = btn.dataset.topic;
+  document.querySelectorAll("#topic-filters .pill-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderDocs();
+});
+
+document.getElementById("type-filters").addEventListener("click", e => {
+  const btn = e.target.closest("[data-type]");
+  if (!btn) return;
+  activeType = btn.dataset.type;
+  document.querySelectorAll("#type-filters .pill-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderDocs();
+});
+
+const sortSelect = document.getElementById("sort-select");
+if (sortSelect) {
+  sortSelect.addEventListener("change", e => {
+    activeSort = e.target.value;
+    renderDocs();
+  });
+}
+
+document.getElementById("search-input").addEventListener("input", e => {
+  searchQuery = e.target.value;
+  renderDocs();
+});
+
+// ── STICKY HEADER SHADOW ──
+window.addEventListener("scroll", () => {
+  document.getElementById("site-header").classList.toggle("scrolled", window.scrollY > 10);
+});
+
+// ── LAST UPDATED ──
+document.getElementById("last-updated").textContent = new Date().toLocaleDateString("vi-VN", { day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit" });
+
+// ── INIT ──
+renderFolders();
+startDocumentPolling();
+lucide.createIcons();
+
+// ── ELEMENT SDK ──
+const defaultConfig = {
+  site_title: "Thư viện tài liệu Toán học",
+  site_subtitle: "Tải đề, luyện tập từ cơ bản đến nâng cao",
+  cta_text: "Khám phá ngay",
+  sync_message: "Ngân hàng đề được cập nhật tự động từ hệ thống local",
+  background_color: "#E8F4FD",
+  surface_color: "#FFFFFF",
+  text_color: "#0B1F3A",
+  primary_action: "#0EA5E9",
+  secondary_action: "#0B1F3A",
+  font_family: "DM Sans",
+  font_size: 16
+};
+
+function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+  document.getElementById("hero-title").textContent = c.site_title;
+  document.getElementById("hero-subtitle").textContent = c.site_subtitle;
+  document.getElementById("cta-btn").textContent = c.cta_text;
+  document.getElementById("sync-msg").textContent = c.sync_message;
+
+  const root = document.documentElement;
+  // Background
+  document.querySelector(".hero-bg").style.background = `linear-gradient(135deg, ${c.background_color} 0%, ${c.surface_color} 100%)`;
+  // Text
+  document.querySelectorAll("h1,h2,h3,h4,p,span,button,a,input").forEach(el => {
+    if (!el.closest("footer") && !el.classList.contains("pill-btn")) {
+      el.style.color = el.style.color || "";
+    }
+  });
+  document.getElementById("hero-title").style.color = c.text_color;
+  document.getElementById("hero-subtitle").style.color = c.text_color + "B3";
+  // Primary action
+  document.getElementById("cta-btn").style.backgroundColor = c.primary_action;
+  // Font
+  const ff = c.font_family + ", DM Sans, sans-serif";
+  document.body.style.fontFamily = ff;
+  document.querySelectorAll(".font-serif-custom").forEach(el => {
+    el.style.fontFamily = c.font_family + ", Source Serif 4, Georgia, serif";
+  });
+  // Font size
+  const bs = c.font_size;
+  document.getElementById("hero-title").style.fontSize = `${bs * 2.5}px`;
+  document.getElementById("hero-subtitle").style.fontSize = `${bs * 1.1}px`;
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: async (config) => applyConfig(config),
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+      { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+      { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+      { get: () => config.primary_action || defaultConfig.primary_action, set: v => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+      { get: () => config.secondary_action || defaultConfig.secondary_action, set: v => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } },
+    ],
+    borderables: [],
+    fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+    fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } },
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ["site_title", config.site_title || defaultConfig.site_title],
+    ["site_subtitle", config.site_subtitle || defaultConfig.site_subtitle],
+    ["cta_text", config.cta_text || defaultConfig.cta_text],
+    ["sync_message", config.sync_message || defaultConfig.sync_message],
+  ])
+});
+
+// Documents loaded from documents.js - ready to use
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e4d577841cd0901',t:'MTc3NDkzOTAwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
