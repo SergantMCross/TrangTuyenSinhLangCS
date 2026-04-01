@@ -36,7 +36,7 @@ Register-ObjectEvent -InputObject $watcher -EventName Created -Action $action | 
 Register-ObjectEvent -InputObject $watcher -EventName Changed -Action $action | Out-Null
 Register-ObjectEvent -InputObject $watcher -EventName Renamed -Action $action | Out-Null
 
-Write-Host "Watching '$DocumentsDir' for .pdf/.docx changes..."
+Write-Host "Watching '$DocumentsDir' for .pdf/.docx/.xlsx/.xls changes..."
 Write-Host "Leave this PowerShell window running. Press Ctrl+C to stop."
 
 while ($true) {

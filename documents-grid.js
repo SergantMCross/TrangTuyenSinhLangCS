@@ -69,6 +69,7 @@ function detectFileType(name) {
   const lower = String(name).toLowerCase();
   if (lower.endsWith('.pdf')) return 'pdf';
   if (lower.endsWith('.docx')) return 'docx';
+  if (lower.endsWith('.xlsx') || lower.endsWith('.xls')) return 'excel';
   return 'unknown';
 }
 
@@ -121,11 +122,13 @@ function renderDocumentsGrid(documents, state) {
     const card = document.createElement('div');
     card.className = 'bg-white rounded-2xl border border-slate-mid p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow';
 
-    const iconName = fileType === 'pdf' ? 'file-text' : 'file';
-    const typeLabel = fileType.toUpperCase();
-    const typeColor =
-      fileType === 'pdf'
-        ? { bg: 'rgba(165,28,48,0.08)', fg: '#A51C30' }
+const iconName = fileType === 'pdf' ? 'file-text' : fileType === 'excel' ? 'file-chart' : 'file';
+  const typeLabel = fileType.toUpperCase();
+  const typeColor =
+    fileType === 'pdf'
+      ? { bg: 'rgba(165,28,48,0.08)', fg: '#A51C30' }
+      : fileType === 'excel'
+      ? { bg: 'rgba(16,185,129,0.08)', fg: '#10B981' }
         : { bg: 'rgba(0,0,0,0.04)', fg: '#1a1a1a' };
 
     const downloadUrl = buildDownloadUrl(doc.name);

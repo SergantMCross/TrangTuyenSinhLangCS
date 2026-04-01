@@ -11,11 +11,17 @@ if (-not (Test-Path -LiteralPath $DocumentsDir)) {
 
 $items = Get-ChildItem -Path $DocumentsDir -File |
   Where-Object {
-    $_.Name.ToLower().EndsWith(".pdf") -or $_.Name.ToLower().EndsWith(".docx")
+    $_.Name.ToLower().EndsWith(".pdf") -or
+    $_.Name.ToLower().EndsWith(".docx") -or
+    $_.Name.ToLower().EndsWith(".xlsx") -or
+    $_.Name.ToLower().EndsWith(".xls")
   } |
   Sort-Object -Property Name |
   ForEach-Object {
-    $type = if ($_.Name.ToLower().EndsWith(".pdf")) { "pdf" } else { "docx" }
+    if ($_.Name.ToLower().EndsWith(".pdf")) { $type = "pdf" }
+    elseif ($_.Name.ToLower().EndsWith(".docx")) { $type = "docx" }
+    else { $type = "excel" }
+
     # Convert last write time to unix-milliseconds
     $ms = [long](($_.LastWriteTimeUtc - (Get-Date "1970-01-01T00:00:00Z")).TotalMilliseconds)
     [pscustomobject]@{
